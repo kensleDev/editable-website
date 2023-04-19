@@ -1,4 +1,5 @@
-async function getSignedUrl(path, type) {
+
+async function getSignedUrl(path: string, type: string): Promise<string> {
   const response = await fetch(`/api/presignedurl?path=${path}&type=${type}`, {
     method: 'GET',
     headers: {
@@ -9,7 +10,7 @@ async function getSignedUrl(path, type) {
   return signedUrl;
 }
 
-function uploadS3(url, file, progressCallback) {
+function uploadS3(url: string, file: File, progressCallback?: (percentComplete: number) => void): Promise<XMLHttpRequest> {
   return new Promise(function (resolve, reject) {
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
@@ -26,7 +27,7 @@ function uploadS3(url, file, progressCallback) {
       xhr.upload.onprogress = e => {
         if (e.lengthComputable) {
           const percentComplete = (e.loaded / file.size) * 100;
-          progressCallback(parseInt(percentComplete, 10));
+          progressCallback(parseInt(percentComplete.toString(), 10));
         }
       };
     }
@@ -38,8 +39,10 @@ function uploadS3(url, file, progressCallback) {
   });
 }
 
-export default async function uploadAsset(file, path, onProgress) {
+export default async function uploadAsset(file: File, path: string, onProgress?: (percentComplete: number) => void): Promise<string> {
   const signedUrl = await getSignedUrl(path, file.type);
   await uploadS3(signedUrl, file, onProgress);
   return path;
 }
+
+

@@ -1,6 +1,6 @@
 import {db} from './client'
 
-export async function createOrUpdateCounter(counterId) {
+export async function createOrUpdateCounter(counterId: string) {
 
   const counterExists = await db.counter.findFirst({
     where: {

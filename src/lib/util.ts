@@ -1,4 +1,5 @@
-export function classNames(...classes) {
+
+export function classNames(...classes: (string | undefined | null | boolean)[]): string {
   return classes.filter(Boolean).join(' ');
 }
 
@@ -17,7 +18,7 @@ Dual licensed under the MIT and GPL licenses.
  * @param {Number} [len] if provided a UUID with given length will be created.
  * @return A generated uuid.
  */
-export function uuid(prefix, len) {
+export function uuid(prefix?: string, len?: number): string {
   if (prefix && prefix[prefix.length - 1] !== '-') {
     prefix = prefix.concat('-');
   }
@@ -47,14 +48,14 @@ export function uuid(prefix, len) {
   return (prefix || '') + uuid.join('');
 }
 
-export function formatDate(dateString, withTime) {
+export function formatDate(dateString: string, withTime: boolean): string {
   const date = new Date(dateString);
   if (withTime) {
     if (date.toDateString() === new Date().toDateString()) {
       // on same day, only show the time
       return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
     } else {
-      const opts = {
+      const opts: Intl.DateTimeFormatOptions = {
         month: 'short',
         day: 'numeric',
         hour: 'numeric',
@@ -75,8 +76,8 @@ export function formatDate(dateString, withTime) {
   }
 }
 
-export function debounce(node, params) {
-  let timer;
+export function debounce(node: Node, params: { func: () => void, duration: number }): { update: () => void, destroy: () => void } {
+  let timer: ReturnType<typeof setTimeout>;
 
   return {
     update() {
@@ -89,7 +90,7 @@ export function debounce(node, params) {
   };
 }
 
-export function extractTeaser(body) {
+export function extractTeaser(body: HTMLElement): string {
   const teaser = [...body.querySelectorAll('p')].map(n => n.textContent).join(' ');
   if (teaser.length > 512) {
     return teaser.slice(0, 512).concat('…');
@@ -98,16 +99,16 @@ export function extractTeaser(body) {
   }
 }
 
-export function resizeImage(file, maxWidth, maxHeight, quality) {
+export function resizeImage(file: File, maxWidth: number, maxHeight: number, quality: number) {
   const reader = new FileReader();
   reader.readAsDataURL(file);
   return new Promise((resolve, reject) => {
     reader.onload = event => {
       const image = new Image();
-      image.src = event.target.result;
+      image.src = event.target?.result as string;
       image.onload = () => {
-        let width = image.width;
-        let height = image.height;
+        const width = image.width;
+        const height = image.height;
         let newWidth = width;
         let newHeight = height;
         if (width > maxWidth) {
@@ -121,8 +122,10 @@ export function resizeImage(file, maxWidth, maxHeight, quality) {
         const canvas = document.createElement('canvas');
         canvas.width = newWidth;
         canvas.height = newHeight;
+
         const context = canvas.getContext('2d');
-        context.drawImage(image, 0, 0, newWidth, newHeight);
+
+        context?.drawImage(image, 0, 0, newWidth, newHeight);
         canvas.toBlob(
           blob => {
             resolve(blob);
@@ -143,20 +146,23 @@ export function resizeImage(file, maxWidth, maxHeight, quality) {
 /**
  * Get image dimensions from a file
  */
-export async function getDimensions(file) {
+export async function getDimensions(file: File): Promise<{ width: number, height: number }> {
   return new Promise((resolve, reject) => {
     const img = new window.Image();
+
     img.onload = function () {
       resolve({ width: this.width, height: this.height });
     };
-    img.onerror = function () {
-      reject(img.error);
+
+    img.onerror = function (e) {
+      reject(e);
     };
+
     img.src = URL.createObjectURL(file);
   });
 }
 
-export async function fetchJSON(method, url, data = undefined) {
+export async function fetchJSON<T>(method: string, url: string, data?: T): Promise<T> {
   const response = await fetch(url, {
     method: method,
     body: JSON.stringify(data),
@@ -166,5 +172,5 @@ export async function fetchJSON(method, url, data = undefined) {
   });
   if (!response.ok) throw new Error(response.statusText);
   const result = await response.json();
-  return result;
+  return result as T;
 }
