@@ -1,5 +1,5 @@
 <script>
-  import { classNames } from '$lib/core/util';
+  import { classNames } from '$lib/util';
   export let checked = false;
   export let size = 'default';
   $: className = classNames(

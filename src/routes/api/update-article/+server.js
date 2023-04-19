@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { updateArticle } from '$lib/core/api';
+import { updateArticle } from '$lib/api';
 
 export async function POST({ request, locals }) {
   const currentUser = locals.user;

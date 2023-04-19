@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { debounce, classNames } from '$lib/core/util';
+  import { debounce, classNames } from '$lib/util';
   import { SHORTCUTS } from '$lib/constants';
   import { goto } from '$app/navigation';
 

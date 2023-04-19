@@ -1,7 +1,7 @@
 <script>
   import { createEventDispatcher, onMount, onDestroy } from 'svelte';
   import { browser } from '$app/environment';
-  import { classNames } from '$lib/core/util';
+  import { classNames } from '$lib/util';
 
   // Only relevant for mobile
   export let position = 'bottom';

@@ -1,5 +1,5 @@
 <script>
-  import { classNames } from '$lib/core/util';
+  import { classNames } from '$lib/util';
   export let noPadding = false;
 </script>
 

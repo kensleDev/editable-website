@@ -1,5 +1,5 @@
 <script>
-  import { classNames } from '$lib/core/util';
+  import { classNames } from '$lib/util';
   import Modal from './Modal.svelte';
   import NotEditable from './NotEditable.svelte';
   import Search from './Search.svelte';

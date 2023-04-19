@@ -1,7 +1,7 @@
 <script>
   import PlainText from '$lib/components/PlainText.svelte';
   import RichText from '$lib/components/RichText.svelte';
-  import { fetchJSON } from '$lib/core/util';
+  import { fetchJSON } from '$lib/util';
   import PrimaryButton from '$lib/components/PrimaryButton.svelte';
   import SecondaryButton from '$lib/components/SecondaryButton.svelte';
   import WebsiteNav from '$lib/components/WebsiteNav.svelte';

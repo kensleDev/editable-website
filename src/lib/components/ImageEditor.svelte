@@ -1,6 +1,6 @@
 <script>
   import uuid from '$lib/uuid';
-  import { resizeImage } from '$lib/core/util';
+  import { resizeImage } from '$lib/util';
   import uploadAsset from '$lib/uploadAsset';
 
   export let currentUser;

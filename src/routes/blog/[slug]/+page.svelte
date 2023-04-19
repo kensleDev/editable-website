@@ -1,5 +1,5 @@
 <script>
-  import { extractTeaser, fetchJSON } from '$lib/core/util';
+  import { extractTeaser, fetchJSON } from '$lib/util';
   import PrimaryButton from '$lib/components/PrimaryButton.svelte';
   import WebsiteNav from '$lib/components/WebsiteNav.svelte';
   import Modal from '$lib/components/Modal.svelte';

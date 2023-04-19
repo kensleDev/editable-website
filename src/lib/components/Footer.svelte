@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { fetchJSON } from '$lib/core/util';
+  import { fetchJSON } from '$lib/util';
   import NotEditable from '$lib/components/NotEditable.svelte';
 
   export let counter;

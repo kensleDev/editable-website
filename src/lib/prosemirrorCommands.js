@@ -1,4 +1,4 @@
-import { markApplies, canInsert } from '$lib/core/prosemirrorUtil';
+import { markApplies, canInsert } from '$lib/prosemirrorUtil';
 
 export function createLink(state /*, dispatch, cb*/) {
   const schema = state.schema;

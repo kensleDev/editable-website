@@ -1,6 +1,6 @@
 <script>
   import PlainText from './PlainText.svelte';
-  import { classNames } from '$lib/core/util';
+  import { classNames } from '$lib/util';
   import Image from './Image.svelte';
   import { createEventDispatcher } from 'svelte';
 

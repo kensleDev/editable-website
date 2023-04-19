@@ -1,7 +1,7 @@
 <script>
   import PlainText from '$lib/components/PlainText.svelte';
   import RichText from '$lib/components/RichText.svelte';
-  import { formatDate } from '$lib/core/util';
+  import { formatDate } from '$lib/util';
   export let title;
   export let content;
   export let publishedAt = undefined;
