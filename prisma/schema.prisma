@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Article {
+  article_id     String    @default(dbgenerated("gen_random_uuid()")) @id
+  slug           String    @unique
+  title          String
+  teaser         String
+  content        String?
+  created_at     DateTime  @default(now())
+  published_at   DateTime?
+  updated_at     DateTime?
+}
+
+model Session {
+  session_id     String    @default(dbgenerated("gen_random_uuid()")) @id
+  expires        DateTime
+}
+
+model Page {
+  page_id        String    @id
+  data           Json
+}
+
+model Counter {
+  counter_id     String    @id
+  count          Int
+}
