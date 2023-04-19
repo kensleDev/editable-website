@@ -1,5 +1,5 @@
 import { redirect, fail } from '@sveltejs/kit';
-import { authenticate } from '$lib/api';
+import { authenticate } from '$lib/_api';
 
 export const actions = {
   default: async ({ cookies, request }) => {

@@ -40,34 +40,6 @@ export async function updateArticle(slug, title, content, teaser, currentUser) {
   });
 }
 
-/*
-  This can be replaced with any user-based authentication system
-*/
-export async function authenticate(password, sessionTimeout) {
-  return await db.tx('create-session', async t => {
-    const expires = __getDateTimeMinutesAfter(sessionTimeout);
-    if (password === ADMIN_PASSWORD) {
-      const { sessionId } = await t.one(
-        'INSERT INTO sessions (expires) values($1) returning session_id',
-        [expires]
-      );
-      return { sessionId };
-    } else {
-      throw 'Authentication failed.';
-    }
-  });
-}
-
-/*
-  Log out of the admin session ...
-*/
-export async function destroySession(sessionId) {
-  return await db.tx('destroy-session', async t => {
-    await t.any('DELETE FROM sessions WHERE session_id = $1', [sessionId]);
-    return true;
-  });
-}
-
 /**
  * List all available articles (newest first)
  */
@@ -120,6 +92,45 @@ export async function getNextArticle(slug) {
 }
 
 /**
+ * Remove the entire article
+ */
+export async function deleteArticle(slug, currentUser) {
+  if (!currentUser) throw new Error('Not authorized');
+  return await db.tx('delete-article', async t => {
+    await t.any('DELETE FROM articles WHERE slug = $1', [slug]);
+    return true;
+  });
+}
+
+/*
+  This can be replaced with any user-based authentication system
+*/
+export async function authenticate(password, sessionTimeout) {
+  return await db.tx('create-session', async t => {
+    const expires = __getDateTimeMinutesAfter(sessionTimeout);
+    if (password === ADMIN_PASSWORD) {
+      const { sessionId } = await t.one(
+        'INSERT INTO sessions (expires) values($1) returning session_id',
+        [expires]
+      );
+      return { sessionId };
+    } else {
+      throw 'Authentication failed.';
+    }
+  });
+}
+
+/*
+  Log out of the admin session ...
+*/
+export async function destroySession(sessionId) {
+  return await db.tx('destroy-session', async t => {
+    await t.any('DELETE FROM sessions WHERE session_id = $1', [sessionId]);
+    return true;
+  });
+}
+
+/**
  * Search within all searchable items (including articles and website sections)
  */
 export async function search(q, currentUser) {
@@ -155,17 +166,6 @@ export async function getArticleBySlug(slug) {
   return await db.tx('get-article-by-slug', async t => {
     const article = await t.one('SELECT * FROM articles WHERE slug = $1', [slug]);
     return article;
-  });
-}
-
-/**
- * Remove the entire article
- */
-export async function deleteArticle(slug, currentUser) {
-  if (!currentUser) throw new Error('Not authorized');
-  return await db.tx('delete-article', async t => {
-    await t.any('DELETE FROM articles WHERE slug = $1', [slug]);
-    return true;
   });
 }
 
@@ -222,25 +222,25 @@ export async function getPage(pageId) {
 /**
  * TODO: Turn this into a Postgres function
  */
-export async function createOrUpdateCounter(counterId) {
-  return await db.tx('create-or-update-counter', async t => {
-    const counterExists = await t.oneOrNone(
-      'SELECT counter_id FROM counters WHERE counter_id = $1',
-      [counterId]
-    );
-    if (counterExists) {
-      return await t.one(
-        'UPDATE counters SET count = count + 1 WHERE counter_id = $1 RETURNING count',
-        [counterId]
-      );
-    } else {
-      return await t.one('INSERT INTO counters (counter_id, count) values($1, 1) RETURNING count', [
-        counterId
-      ]);
-    }
-  });
-}
-
+// export async function createOrUpdateCounter(counterId) {
+//   return await db.tx('create-or-update-counter', async t => {
+//     const counterExists = await t.oneOrNone(
+//       'SELECT counter_id FROM counters WHERE counter_id = $1',
+//       [counterId]
+//     );
+//     if (counterExists) {
+//       return await t.one(
+//         'UPDATE counters SET count = count + 1 WHERE counter_id = $1 RETURNING count',
+//         [counterId]
+//       );
+//     } else {
+//       return await t.one('INSERT INTO counters (counter_id, count) values($1, 1) RETURNING count', [
+//         counterId
+//       ]);
+//     }
+//   });
+// }
+//
 /**
  * Helpers
  */

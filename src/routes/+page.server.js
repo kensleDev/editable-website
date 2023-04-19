@@ -1,4 +1,4 @@
-import { getArticles, getPage } from '$lib/api';
+import { getArticles, getPage } from '$lib/_api';
 
 export async function load({ locals }) {
   const currentUser = locals.user;

@@ -1,4 +1,4 @@
-import { getArticleBySlug, getNextArticle } from '$lib/api';
+import { getArticleBySlug, getNextArticle } from '$lib/_api';
 
 export async function load({ params, locals }) {
   const currentUser = locals.user;
