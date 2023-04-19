@@ -1,6 +1,7 @@
-export async function load({ locals }) {
-  const currentUser = locals.user;
+export async function load({ locals: { getSession } }) {
+  const session = await getSession()
+
   return {
-    currentUser
+    session
   };
 }

@@ -15,7 +15,7 @@
     title = 'Untitled',
     content = 'Copy and paste your text here.';
 
-  $: currentUser = data.currentUser;
+  $: currentUser = data.session;
 
   async function createArticle() {
     if (!currentUser) {

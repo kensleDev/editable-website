@@ -17,7 +17,9 @@
   let showUserMenu = false;
   let editable, title, teaser, content, publishedAt, updatedAt;
 
-  $: currentUser = data.currentUser;
+  $: currentUser = data.session;
+
+  $: console.log({ currentUser });
 
   $: {
     // HACK: To make sure this is only run when the parent passes in new data

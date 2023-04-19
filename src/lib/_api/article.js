@@ -41,7 +41,7 @@ export async function getArticles(currentUser) {
   if(currentUser) {
     return await db.article.findMany({
       orderBy: {
-        modified_at: 'desc'
+        updated_at: 'desc'
       }
     })
   } else {
@@ -56,6 +56,17 @@ export async function getArticles(currentUser) {
       }
     })
   }
+}
+
+/**
+ * Retrieve article based on a given slug
+ */
+export async function getArticleBySlug(slug) {
+  return await db.article.findFirst({
+    where: {
+      slug: slug
+    }
+  })
 }
 
 export async function getNextArticle(slug) {

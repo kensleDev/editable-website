@@ -31,6 +31,7 @@
   "dependencies": {
     "@fontsource/jost": "^4.5.13",
     "@prisma/client": "^4.13.0",
+    "@supabase/auth-helpers-sveltekit": "^0.9.4",
     "@sveltejs/adapter-node": "^1.2.3",
     "aws-sdk": "^2.1350.0",
     "camelcase-keys": "^8.0.2",

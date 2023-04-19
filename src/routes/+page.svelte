@@ -16,7 +16,8 @@
   import EditorToolbar from '$lib/components/EditorToolbar.svelte';
 
   export let data;
-  $: currentUser = data.currentUser;
+  $: currentUser = data.session;
+  $: console.log({ currentUser });
 
   // --------------------------------------------------------------------------
   // DEFAULT PAGE CONTENT - AJDUST TO YOUR NEEDS

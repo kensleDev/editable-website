@@ -73,7 +73,7 @@
           <button
             on:click={() => (showUserMenu = !showUserMenu)}
             class="ml-0 hover:text-black"
-            title={currentUser.name}
+            title={currentUser.user.email}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

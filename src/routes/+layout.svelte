@@ -5,6 +5,7 @@
   import '@fontsource/jost/700.css';
 
   import '../app.css';
+  import { onMount } from 'svelte';
 
   export let data;
 

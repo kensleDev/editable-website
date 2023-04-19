@@ -11,7 +11,7 @@
   export let data;
   let showUserMenu;
 
-  $: currentUser = data.currentUser;
+  $: currentUser = data.session;
 </script>
 
 <svelte:head>
