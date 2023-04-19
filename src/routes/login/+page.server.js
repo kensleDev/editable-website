@@ -24,7 +24,7 @@ export const actions = {
 				});
 			}
 
-			console.log({ data: oauthRes.data });
+			// console.log({ data: oauthRes.data });
 
 			throw redirect(303, oauthRes.data.url);
 		}

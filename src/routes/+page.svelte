@@ -17,7 +17,7 @@
 
   export let data;
   $: currentUser = data.session;
-  $: console.log({ currentUser });
+  // $: console.log({ currentUser });
 
   // --------------------------------------------------------------------------
   // DEFAULT PAGE CONTENT - AJDUST TO YOUR NEEDS

@@ -51,7 +51,7 @@
     editable = false;
 
     testimonials.addPlaceholder(data.page?.testimonials || TESTIMONIALS_PLACEHOLDER);
-    console.log($testimonials);
+    // console.log($testimonials);
   }
 
   initOrReset();
