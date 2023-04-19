@@ -1,31 +1,27 @@
-import { writable } from "svelte/store";
+import { writable } from 'svelte/store';
 
 function newTestimonialStore() {
-
-  let testimonials = writable([])
+  let testimonials = writable([]);
 
   function addPlaceholder(pageData, placeholder) {
-    testimonials.update(s => {
-      s = JSON.parse(JSON.stringify(pageData || placeholder));
-      return s
-    })
+    testimonials.set(JSON.parse(JSON.stringify(pageData || placeholder)));
   }
 
   function add() {
-    const newTestimonial = { 
+    const newTestimonial = {
       text: '“Add a quote text here”',
       image: '/images/person-placeholder.jpg',
       name: 'Firstname Lastname · example.com'
-    }
+    };
 
-    testimonials.update(s => s.push(newTestimonial))
+    testimonials.update(s => s.push(newTestimonial));
   }
 
   function remove(index) {
     testimonials.update(s => {
-      s.splice(index, 1)
-      return s
-    })
+      s.splice(index, 1);
+      return s;
+    });
   }
 
   function move(index, direction) {
@@ -43,10 +39,9 @@ function newTestimonialStore() {
       const element = s.splice(index, 1)[0];
       // Insert at new position
       s.splice(toIndex, 0, element);
-      return s
-    })
+      return s;
+    });
   }
-
 
   return {
     subscribe: testimonials.subscribe,
@@ -55,7 +50,7 @@ function newTestimonialStore() {
     addPlaceholder,
     remove,
     move
-  }
+  };
 
   // function addTestimonial() {
   //   testimonials.push({
@@ -88,5 +83,4 @@ function newTestimonialStore() {
   // }
 }
 
-export const testimonials = newTestimonialStore()
-
+export const testimonials = newTestimonialStore();

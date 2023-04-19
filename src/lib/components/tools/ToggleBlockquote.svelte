@@ -1,5 +1,5 @@
 <script>
-  import { classNames } from '$lib/util';
+  import { classNames } from '$lib/core/util';
   import { wrapIn } from 'prosemirror-commands';
 
   export let editorView;

@@ -2,7 +2,7 @@
   import PlainText from '$lib/components/PlainText.svelte';
   import SecondaryButton from '$lib/components/SecondaryButton.svlete';
   import Image from '$lib/components/Image.svelte';
-  import { classNames } from '$lib/util';
+  import { classNames } from '$lib/core/util';
   import { createEventDispatcher } from 'svelte';
 
   const dispatch = createEventDispatcher();

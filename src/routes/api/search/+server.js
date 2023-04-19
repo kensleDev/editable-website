@@ -1,4 +1,4 @@
-import { search } from '$lib/api';
+import { search } from '$lib/core/api';
 import { json } from '@sveltejs/kit';
 
 export async function GET({ url, locals }) {

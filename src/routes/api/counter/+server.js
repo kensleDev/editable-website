@@ -1,4 +1,4 @@
-import { createOrUpdateCounter } from '$lib/api';
+import { createOrUpdateCounter } from '$lib/core/api';
 import { json } from '@sveltejs/kit';
 
 export async function GET({ url }) {

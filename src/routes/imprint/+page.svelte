@@ -6,7 +6,7 @@
   import Modal from '$lib/components/Modal.svelte';
   import LoginMenu from '$lib/components/LoginMenu.svelte';
   import PrimaryButton from '$lib/components/PrimaryButton.svelte';
-  import { fetchJSON } from '$lib/util';
+  import { fetchJSON } from '$lib/core/util';
   import EditorToolbar from '$lib/components/EditorToolbar.svelte';
 
   export let data;

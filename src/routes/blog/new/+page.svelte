@@ -1,5 +1,5 @@
 <script>
-  import { extractTeaser, fetchJSON } from '$lib/util';
+  import { extractTeaser, fetchJSON } from '$lib/core/util';
   import WebsiteNav from '$lib/components/WebsiteNav.svelte';
   import { goto } from '$app/navigation';
   import Footer from '$lib/components/Footer.svelte';

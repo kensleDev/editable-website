@@ -1,14 +1,17 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
-  import { toHTML, fromHTML } from '$lib/prosemirrorUtil';
-  import { singleLinePlainTextSchema, multiLinePlainTextSchema } from '$lib/prosemirrorSchemas';
+  import { toHTML, fromHTML } from '$lib/core/prosemirrorUtil';
+  import {
+    singleLinePlainTextSchema,
+    multiLinePlainTextSchema
+  } from '$lib/core/prosemirrorSchemas';
   import { activeEditorView } from '$lib/stores';
   import { EditorState, Plugin } from 'prosemirror-state';
   import { EditorView } from 'prosemirror-view';
   import { history } from 'prosemirror-history';
   import { keymap } from 'prosemirror-keymap';
   import { baseKeymap } from 'prosemirror-commands';
-  import { buildKeymap } from '$lib/prosemirrorKeymap';
+  import { buildKeymap } from '$lib/core/prosemirrorKeymap';
 
   export let content = '';
   export let multiLine = false;

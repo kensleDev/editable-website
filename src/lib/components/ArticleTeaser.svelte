@@ -1,7 +1,7 @@
 <script>
   export let article;
   export let firstEntry;
-  import { classNames } from '$lib/util';
+  import { classNames } from '$lib/core/util';
   import SecondaryButton from './SecondaryButton.svelte';
 </script>
 

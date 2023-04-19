@@ -1,5 +1,5 @@
 import { fail } from '@sveltejs/kit';
-import { destroySession } from '$lib/api';
+import { destroySession } from '$lib/core/api';
 
 export async function load({ cookies }) {
   const sessionId = cookies.get('sessionid');

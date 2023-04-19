@@ -1,5 +1,5 @@
 <script>
-  import { classNames } from '$lib/util';
+  import { classNames } from '$lib/core/util';
   export let styles;
   export let size = 'default';
   export let type = 'button';
