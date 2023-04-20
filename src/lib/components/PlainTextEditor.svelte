@@ -13,12 +13,15 @@
 	import { history } from 'prosemirror-history';
 	import { keymap } from 'prosemirror-keymap';
 	import { baseKeymap } from 'prosemirror-commands';
+	import type { Node } from 'prosemirror-model';
 
 	export let content = '';
 	export let multiLine = false;
 
 	let editorChange = false;
-	let prosemirrorNode, editorView, editorState;
+	let prosemirrorNode: Node;
+	let editorView: EditorView;
+	let editorState: EditorState;
 
 	$: schema = multiLine ? multiLinePlainTextSchema : singleLinePlainTextSchema;
 

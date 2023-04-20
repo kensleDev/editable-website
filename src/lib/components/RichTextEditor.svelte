@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { toHTML, fromHTML,  singleLineRichTextSchema, multiLineRichTextSchema, buildKeymap, buildInputRules } from '$lib/prosemirror;
+
   import { activeEditorView } from '$lib/stores';
   import { EditorState, Plugin } from 'prosemirror-state';
   import { EditorView } from 'prosemirror-view';
@@ -11,7 +12,10 @@
   export let content = '<p>Enter text.</p>';
   export let multiLine = false;
   let editorChange = false;
-  let prosemirrorNode, editorView, editorState;
+
+ 	let prosemirrorNode: Node;
+	let editorView: EditorView;
+	let editorState: EditorState;
 
   $: schema = multiLine ? multiLineRichTextSchema : singleLineRichTextSchema;
   $: {

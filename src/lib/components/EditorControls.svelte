@@ -13,8 +13,9 @@
 	import CreateLink from './tools/CreateLink.svelte';
 	import type { EditorView } from 'prosemirror-view';
 	import type { EditorState } from 'prosemirror-state';
+	import type { Session } from '@supabase/supabase-js';
 
-	export let currentUser: any | undefined = undefined;
+	export let session: Session | null;
 
 	let editorView: EditorView | null = null;
 	let editorState: EditorState | null = null;
@@ -141,7 +142,7 @@
 							>
 						</ToggleOrderedList>
 						<div class="hidden sm:block w-px bg-gray-300 mx-3" />
-						<InsertImage {currentUser} {editorState} {editorView}>
+						<InsertImage {session} {editorState} {editorView}>
 							<svg
 								class="h-3 w-3 sm:h-4 sm:w-4"
 								fill="currentColor"

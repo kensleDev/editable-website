@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let editable: boolean;
-	export let currentUser: any;
+	export let session: any;
 	export let src: string;
 	export let alt: string;
 	export let maxWidth: number;
@@ -15,7 +15,7 @@
 	{#await import('./ImageEditor.svelte')}
 		<img class={className} {src} {alt} />
 	{:then ImageEditor}
-		<ImageEditor {currentUser} class={className} bind:src {alt} {maxWidth} {maxHeight} {quality} />
+		<ImageEditor {session} class={className} bind:src {alt} {maxWidth} {maxHeight} {quality} />
 	{/await}
 {:else}
 	<img class={className} {src} {alt} />

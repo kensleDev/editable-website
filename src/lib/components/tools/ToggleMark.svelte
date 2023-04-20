@@ -3,9 +3,13 @@
 	import { markActive } from '$lib/prosemirror';
 	import { classNames } from '$lib/util';
 
-	export let editorView;
-	export let editorState;
-	export let type;
+	import type { EditorState } from 'prosemirror-state';
+	import type { EditorView } from 'prosemirror-view';
+
+	export let editorView: EditorView;
+	export let editorState: EditorState;
+
+	export let type: any;
 
 	$: schema = editorState.schema;
 	$: markType = schema.marks[type];
