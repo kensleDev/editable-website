@@ -7,7 +7,9 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write ."
+		"format": "prettier --plugin-search-dir . --write .",
+		"supabase:gen": "supabase gen types typescript --db-url ",
+		"example": "source .env && ts-node --esm './tools/genSupabaseTypes.ts' $DATABASE_URL"
 	},
 	"devDependencies": {
 		"@supabase/auth-helpers-svelte": "^0.4.6",
@@ -26,8 +28,10 @@
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
 		"prisma": "^4.13.0",
+		"supabase": "^1.50.9",
 		"svelte": "^3.54.0",
 		"tailwindcss": "^3.3.1",
+		"ts-node": "^10.9.1",
 		"typescript": "^5.0.4",
 		"vite": "^4.2.0"
 	},
