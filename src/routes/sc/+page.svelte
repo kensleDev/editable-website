@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import WebsiteNav from '$lib/components/WebsiteNav.svelte';
   import Footer from '$lib/components/Footer.svelte';
   import PlainText from '$lib/components/PlainText.svelte';

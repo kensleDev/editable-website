@@ -4,36 +4,37 @@ import {
   textblockTypeInputRule,
   smartQuotes,
   emDash,
-  ellipsis
+  ellipsis,
 } from 'prosemirror-inputrules';
+// import { Schema } from 'prosemirror-model';
 
 // Given a blockquote node type, returns an input rule that turns `"> "`
 // at the start of a textblock into a blockquote.
-export function blockQuoteRule(nodeType) {
+export function blockQuoteRule(nodeType: any) {
   return wrappingInputRule(/^\s*>\s$/, nodeType);
 }
 
 // Given a list node type, returns an input rule that turns a number
 // followed by a dot at the start of a textblock into an ordered list.
-export function orderedListRule(nodeType) {
+export function orderedListRule(nodeType: any) {
   return wrappingInputRule(
     /^(\d+)\.\s$/,
     nodeType,
-    match => ({ order: +match[1] }),
-    (match, node) => node.childCount + node.attrs.order == +match[1]
+    (match: any) => ({ order: +match[1] }),
+    (match: any, node: any) => node.childCount + node.attrs.order == +match[1]
   );
 }
 
 // Given a list node type, returns an input rule that turns a bullet
 // (dash, plush, or asterisk) at the start of a textblock into a
 // bullet list.
-export function bulletListRule(nodeType) {
+export function bulletListRule(nodeType: any) {
   return wrappingInputRule(/^\s*([-+*])\s$/, nodeType);
 }
 
 // Given a code block node type, returns an input rule that turns a
 // textblock starting with three backticks into a code block.
-export function codeBlockRule(nodeType) {
+export function codeBlockRule(nodeType: any) {
   return textblockTypeInputRule(/^```$/, nodeType);
 }
 
@@ -41,17 +42,21 @@ export function codeBlockRule(nodeType) {
 // turns up to that number of `#` characters followed by a space at
 // the start of a textblock into a heading whose level corresponds to
 // the number of `#` signs.
-export function headingRule(nodeType, maxLevel) {
-  return textblockTypeInputRule(new RegExp('^(#{1,' + maxLevel + '})\\s$'), nodeType, match => ({
-    level: match[1].length
-  }));
+export function headingRule(nodeType: any, maxLevel: number) {
+  return textblockTypeInputRule(
+    new RegExp('^(#{1,' + maxLevel + '})\\s$'),
+    nodeType,
+    (match: any) => ({
+      level: match[1].length,
+    })
+  );
 }
 
 // A set of input rules for creating the basic block quotes, lists,
 // code blocks, and heading.
-export function buildInputRules(schema) {
-  let rules = smartQuotes.concat(ellipsis, emDash),
-    type;
+export function buildInputRules(schema: any) {
+  const rules = smartQuotes.concat(ellipsis, emDash)
+  let type
   if ((type = schema.nodes.blockquote)) rules.push(blockQuoteRule(type));
   if ((type = schema.nodes.ordered_list)) rules.push(orderedListRule(type));
   if ((type = schema.nodes.bullet_list)) rules.push(bulletListRule(type));

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import PlainText from './PlainText.svelte';
   import { classNames } from '$lib/util';
   import Image from './Image.svelte';

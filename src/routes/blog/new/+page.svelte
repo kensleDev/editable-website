@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { extractTeaser, fetchJSON } from '$lib/util';
   import WebsiteNav from '$lib/components/WebsiteNav.svelte';
   import { goto } from '$app/navigation';

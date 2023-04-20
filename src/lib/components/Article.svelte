@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import PlainText from '$lib/components/PlainText.svelte';
   import RichText from '$lib/components/RichText.svelte';
   import { formatDate } from '$lib/util';

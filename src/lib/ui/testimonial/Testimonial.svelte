@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import PlainText from '$lib/components/PlainText.svelte';
   import SecondaryButton from '$lib/components/SecondaryButton.svlete';
   import Image from '$lib/components/Image.svelte';

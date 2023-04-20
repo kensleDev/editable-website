@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { classNames } from '$lib/util';
   export let styles;
   export let size = 'default';

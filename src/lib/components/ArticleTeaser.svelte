@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let article;
   export let firstEntry;
   import { classNames } from '$lib/util';

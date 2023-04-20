@@ -1,6 +1,8 @@
-import { markApplies, canInsert } from '$lib/prosemirrorUtil';
 
-export function createLink(state /*, dispatch, cb*/) {
+import { markApplies, canInsert } from '$lib/prosemirror';
+import type { EditorState } from 'prosemirror-state';
+
+export function createLink(state: EditorState): boolean {
   const schema = state.schema;
   const markType = schema.marks.link;
   if (!markType) return false;
@@ -12,7 +14,7 @@ export function createLink(state /*, dispatch, cb*/) {
   return true;
 }
 
-export function insertImage(state /*, dispatch, editorView, src*/) {
+export function insertImage(state: EditorState): boolean {
   const nodeType = state.schema.nodes.image;
   if (!nodeType) return false;
   if (!canInsert(state, nodeType)) return false;

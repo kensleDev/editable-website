@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import { debounce, classNames } from '$lib/util';
   import { SHORTCUTS } from '$lib/constants';

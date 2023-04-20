@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import BaseButton from '$lib/components/BaseButton.svelte';
   export let disabled = undefined;
   export let type = 'button';

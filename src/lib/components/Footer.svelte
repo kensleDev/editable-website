@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import { fetchJSON } from '$lib/util';
   import NotEditable from '$lib/components/NotEditable.svelte';

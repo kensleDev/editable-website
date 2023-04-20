@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import '@fontsource/jost/400.css';
   import '@fontsource/jost/500.css';
   import '@fontsource/jost/600.css';

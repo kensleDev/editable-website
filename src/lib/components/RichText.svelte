@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let editable;
   export let content;
   export let multiLine = false;

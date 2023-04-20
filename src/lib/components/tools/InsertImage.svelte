@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
 	import { classNames, resizeImage, getDimensions } from '$lib/util';
 	import { uuid } from '$lib/util';
 	import uploadAsset from '$lib/uploadAsset';
-	import { insertImage } from '$lib/prosemirrorCommands';
+	import { insertImage } from '$lib/prosemirror';
 
 	const ASSET_PATH = import.meta.env.VITE_ASSET_PATH;
 

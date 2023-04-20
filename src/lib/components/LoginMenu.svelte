@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { goto } from '$app/navigation';
   import PrimaryButton from './PrimaryButton.svelte';
   export let currentUser;

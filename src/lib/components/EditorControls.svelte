@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { activeEditorView } from '$lib/stores';
   import { onDestroy } from 'svelte';
   import ToggleMark from './tools/ToggleMark.svelte';
