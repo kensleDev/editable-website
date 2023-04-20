@@ -10,12 +10,12 @@
 	import EditorToolbar from '$lib/components/EditorToolbar.svelte';
 
 	export let data;
-	$: currentUser = data.currentUser;
+	$: session = data.session;
 
-	let editable = false,
-		showUserMenu = false,
-		title,
-		imprint;
+	let editable = false;
+	let showUserMenu = false;
+	let title: string;
+	let imprint: any;
 
 	// --------------------------------------------------------------------------
 	// DEFAULT PAGE CONTENT - AJDUST TO YOUR NEEDS
@@ -47,7 +47,7 @@
 	}
 
 	async function savePage() {
-		if (!currentUser) return alert('Sorry, you are not authorized.');
+		if (!session) return alert('Sorry, you are not authorized.');
 		try {
 			fetchJSON('POST', '/api/save-page', {
 				pageId: 'imprint',
@@ -72,16 +72,16 @@
 	<Modal on:close={() => (showUserMenu = false)}>
 		<div class="w-full flex flex-col space-y-4 p-4 sm:p-6">
 			<PrimaryButton on:click={toggleEdit}>Edit page</PrimaryButton>
-			<LoginMenu {currentUser} />
+			<LoginMenu {session} />
 		</div>
 	</Modal>
 {/if}
 
 {#if editable}
-	<EditorToolbar on:cancel={initOrReset} on:save={savePage} />
+	<EditorToolbar {session} on:cancel={initOrReset} on:save={savePage} />
 {/if}
 
-<WebsiteNav bind:showUserMenu {currentUser} bind:editable />
+<WebsiteNav bind:showUserMenu {session} bind:editable />
 
 <div class="py-12 sm:py-24">
 	<div class="max-w-screen-md mx-auto px-6 md:text-xl">

@@ -67,33 +67,33 @@ You can literally do everything that SvelteKit allows you to do. Below is the so
 
 ```svelte
 <svelte:head>
-  <title>Imprint</title>
+	<title>Imprint</title>
 </svelte:head>
 
 {#if showUserMenu}
-  <Modal on:close={() => (showUserMenu = false)}>
-    <div class="w-full flex flex-col space-y-4 p-4 sm:p-6">
-      <PrimaryButton on:click={toggleEdit}>Edit page</PrimaryButton>
-      <LoginMenu {currentUser} />
-    </div>
-  </Modal>
+	<Modal on:close={() => (showUserMenu = false)}>
+		<div class="w-full flex flex-col space-y-4 p-4 sm:p-6">
+			<PrimaryButton on:click={toggleEdit}>Edit page</PrimaryButton>
+			<LoginMenu {currentUser} />
+		</div>
+	</Modal>
 {/if}
 
 {#if editable}
-  <EditorToolbar on:cancel={initOrReset} on:save={savePage} />
+	<EditorToolbar on:cancel={initOrReset} on:save={savePage} />
 {/if}
 
-<WebsiteNav bind:showUserMenu {currentUser} bind:editable />
+<WebsiteNav bind:showUserMenu {session} bind:editable />
 
 <div class="py-12 sm:py-24">
-  <div class="max-w-screen-md mx-auto px-6 md:text-xl">
-    <h1 class="text-4xl md:text-7xl font-bold pb-8">
-      <PlainText {editable} bind:content={title} />
-    </h1>
-    <div class="prose md:prose-xl pb-12 sm:pb-24">
-      <RichText multiLine {editable} bind:content={imprint} />
-    </div>
-  </div>
+	<div class="max-w-screen-md mx-auto px-6 md:text-xl">
+		<h1 class="text-4xl md:text-7xl font-bold pb-8">
+			<PlainText {editable} bind:content={title} />
+		</h1>
+		<div class="prose md:prose-xl pb-12 sm:pb-24">
+			<RichText multiLine {editable} bind:content={imprint} />
+		</div>
+	</div>
 </div>
 
 <Footer counter="/imprint" />
@@ -122,5 +122,7 @@ You can deploy your editable website anywhere else as well. For instance if you'
 If you have questions or need help (with development or deployment), send me an email (michael@letsken.com) and suggest a few slots where you have time for a 30 minute chat (I'm based in Austria GMT+1).
 
 ## Examples
+
 Community provided examples of additional features you can add to your editable website:
+
 - [ChatGPT completion tool](https://github.com/nilskj/editable-website)

@@ -16,8 +16,8 @@
 	import EditorToolbar from '$lib/components/EditorToolbar.svelte';
 
 	export let data;
-	$: currentUser = data.session;
-	// $: console.log({ currentUser });
+	$: session = data.session;
+	// $: console.log({ session });
 
 	// --------------------------------------------------------------------------
 	// DEFAULT PAGE CONTENT - AJDUST TO YOUR NEEDS
@@ -49,18 +49,18 @@
 		}
 	];
 
-	let editable,
-		title,
-		testimonials,
-		faqs,
-		introStep1,
-		introStep2,
-		introStep3,
-		introStep4,
-		bioTitle,
-		bioPicture,
-		bio,
-		showUserMenu;
+	let editable: boolean;
+	let title: string;
+	let testimonials: any;
+	let faqs: any;
+	let introStep1: any;
+	let introStep2: any;
+	let introStep3: any;
+	let introStep4: any;
+	let bioTitle: any;
+	let bioPicture: any;
+	let bio: any;
+	let showUserMenu: boolean;
 
 	function initOrReset() {
 		title = data.page?.title || 'Untitled Website';
@@ -129,12 +129,12 @@
 		testimonials = testimonials; // trigger update
 	}
 
-	function deleteTestimonial(index) {
+	function deleteTestimonial(index: number) {
 		testimonials.splice(index, 1);
 		testimonials = testimonials; // trigger update
 	}
 
-	function moveTestimonial(index, direction) {
+	function moveTestimonial(index: number, direction: 'up' | 'down') {
 		let toIndex;
 		if (direction === 'up' && index > 0) {
 			toIndex = index - 1;
@@ -153,7 +153,7 @@
 	async function savePage() {
 		try {
 			// Only persist the start page when logged in as an admin
-			if (currentUser) {
+			if (session) {
 				await fetchJSON('POST', '/api/save-page', {
 					pageId: 'home',
 					page: {
@@ -188,17 +188,17 @@
 </svelte:head>
 
 {#if editable}
-	<EditorToolbar {currentUser} on:cancel={initOrReset} on:save={savePage} />
+	<EditorToolbar {session} on:cancel={initOrReset} on:save={savePage} />
 {/if}
 
-<WebsiteNav bind:showUserMenu {currentUser} bind:editable />
+<WebsiteNav bind:showUserMenu {session} bind:editable />
 
 {#if showUserMenu}
 	<Modal on:close={() => (showUserMenu = false)}>
 		<form class="w-full block" method="POST">
 			<div class="w-full flex flex-col space-y-4 p-4 sm:p-6">
 				<PrimaryButton on:click={toggleEdit}>Edit page</PrimaryButton>
-				<LoginMenu {currentUser} />
+				<LoginMenu {session} />
 			</div>
 		</form>
 	</Modal>
@@ -255,7 +255,9 @@
 				size="lg"
 				type="button"
 				on:click={() =>
-					document.getElementById('contact').scrollIntoView({ behavior: 'smooth', block: 'start' })}
+					document
+						.getElementById('contact')
+						?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
 				>Create an editable website</PrimaryButton
 			>
 		</div>
@@ -269,7 +271,7 @@
 	{#each testimonials as testimonial, i}
 		<Testimonial
 			{editable}
-			session={currentUser}
+			{session}
 			bind:testimonial
 			firstEntry={i === 0}
 			lastEntry={i === testimonials.length - 1}
@@ -304,12 +306,12 @@
 	<div class="max-w-screen-md mx-auto px-6">
 		<div class="pt-12 sm:pt-24 pb-12 text-center">
 			<Image
-				class="inline-block w-48 h-48 md:w-72 md:h-72 rounded-full"
+				className="inline-block w-48 h-48 md:w-72 md:h-72 rounded-full"
 				maxWidth="384"
 				maxHeight="384"
 				quality="0.8"
 				{editable}
-				{currentUser}
+				{session}
 				bind:src={bioPicture}
 				alt="Michael Aufreiter"
 			/>

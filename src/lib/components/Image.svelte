@@ -3,9 +3,9 @@
 	export let session: any;
 	export let src: string;
 	export let alt: string;
-	export let maxWidth: number;
-	export let maxHeight: number;
-	export let quality: number;
+	export let maxWidth: number | string;
+	export let maxHeight: number | string;
+	export let quality: number | string;
 	export let className: string;
 
 	// let className = class;
