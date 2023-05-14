@@ -1,6 +1,3 @@
-<script lang="ts">
-</script>
-
 <main>
 	<h1>Register</h1>
 	<form action="?/register" method="POST" class="auth-form">

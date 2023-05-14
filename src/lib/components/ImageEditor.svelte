@@ -1,61 +1,61 @@
-<script>
-  import uuid from '$lib/uuid';
-  import { resizeImage } from '$lib/util';
-  import uploadAsset from '$lib/uploadAsset';
+<script lang="ts">
+	import { uuid, resizeImage } from '$lib/util';
+	import uploadAsset from '$lib/uploadAsset';
 
-  export let currentUser;
-  export let src;
-  export let alt;
-  export let maxWidth;
-  export let maxHeight;
-  export let quality;
-  let className = '';
-  export { className as class };
+	export let currentUser: any;
+	export let src: string;
+	export let alt: string;
+	export let maxWidth: number;
+	export let maxHeight: number;
+	export let quality: number;
 
-  const ASSET_PATH = import.meta.env.VITE_ASSET_PATH;
+	let className = '';
+	export { className as class };
 
-  let fileInput; // for uploading an image
-  let progress = undefined; // file upload progress
+	const ASSET_PATH = import.meta.env.VITE_ASSET_PATH;
 
-  async function uploadImage() {
-    const file = fileInput.files[0];
+	let fileInput: any; // for uploading an image
+	let progress = undefined; // file upload progress
 
-    // We convert all uploads to the WEBP image format
-    const extension = 'webp';
-    const path = [['editable-website', 'images', uuid()].join('/'), extension].join('.');
+	async function uploadImage() {
+		const file = fileInput.files[0];
 
-    const resizedBlob = await resizeImage(file, maxWidth, maxHeight, quality);
-    const resizedFile = new File([resizedBlob], `${file.name.split('.')[0]}.webp`, {
-      type: 'image/webp'
-    });
+		// We convert all uploads to the WEBP image format
+		const extension = 'webp';
+		const path = [['editable-website', 'images', uuid()].join('/'), extension].join('.');
 
-    progress = 0;
-    try {
-      if (currentUser) {
-        await uploadAsset(resizedFile, path, p => {
-          progress = p;
-        });
-        src = `${ASSET_PATH}/${path}`;
-      } else {
-        src = URL.createObjectURL(file);
-      }
-      progress = undefined;
-    } catch (err) {
-      console.error(err);
-      alert('An error occured. Please try again');
-      progress = undefined;
-    }
-    fileInput.value = null;
-  }
+		const resizedBlob = (await resizeImage(file, maxWidth, maxHeight, quality)) as any;
+		const resizedFile = new File([resizedBlob], `${file.name.split('.')[0]}.webp`, {
+			type: 'image/webp'
+		});
+
+		progress = 0;
+		try {
+			if (currentUser) {
+				await uploadAsset(resizedFile, path, (p) => {
+					progress = p;
+				});
+				src = `${ASSET_PATH}/${path}`;
+			} else {
+				src = URL.createObjectURL(file);
+			}
+			progress = undefined;
+		} catch (err) {
+			console.error(err);
+			alert('An error occured. Please try again');
+			progress = undefined;
+		}
+		fileInput.value = null;
+	}
 </script>
 
 <img on:mousedown={() => fileInput.click()} class={className + ' cursor-pointer'} {src} {alt} />
 
 <input
-  class="w-px h-px opacity-0 fixed -top-40"
-  type="file"
-  accept="image/*"
-  name="imagefile"
-  bind:this={fileInput}
-  on:change={uploadImage}
+	class="w-px h-px opacity-0 fixed -top-40"
+	type="file"
+	accept="image/*"
+	name="imagefile"
+	bind:this={fileInput}
+	on:change={uploadImage}
 />
