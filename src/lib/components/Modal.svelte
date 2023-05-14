@@ -7,16 +7,16 @@
 	export let position = 'bottom';
 
 	const dispatch = createEventDispatcher();
-	let surface;
+	let surface: any;
 	onMount(async () => {
-		window.document.children[0].style = 'overflow: hidden;';
+		(window.document.children[0] as any).style = 'overflow: hidden;';
 	});
 	onDestroy(() => {
 		if (browser) {
-			window.document.children[0].style = '';
+			(window.document.children[0] as any).style = '';
 		}
 	});
-	function onMouseUp(e) {
+	function onMouseUp(e: MouseEvent) {
 		if (e.target === surface) dispatch('close');
 	}
 </script>

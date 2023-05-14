@@ -4,7 +4,6 @@
 	import NotEditable from './NotEditable.svelte';
 	import Search from './Search.svelte';
 	import type { Session } from '@supabase/supabase-js';
-
 	export let editable = false;
 	export let session: Session | null;
 

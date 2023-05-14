@@ -54,7 +54,7 @@
 		}
 	}
 
-	function onKeyDown(e) {
+	function onKeyDown(e: KeyboardEvent) {
 		switch (e.keyCode) {
 			case 38: // up
 				prevResult();

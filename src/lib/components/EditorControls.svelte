@@ -17,11 +17,11 @@
 
 	export let session: Session | null;
 
-	let editorView: EditorView | null = null;
+	let editorView: EditorView;
 	let editorState: EditorState | null = null;
 
 	const unsubscribe = activeEditorView.subscribe((value: EditorView | null) => {
-		editorView = value;
+		editorView = value as EditorView;
 		editorState = value?.state as EditorState;
 	});
 

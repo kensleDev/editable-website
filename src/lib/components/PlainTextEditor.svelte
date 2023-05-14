@@ -41,7 +41,7 @@
 		}
 	}
 
-	function dispatchTransaction(transaction) {
+	function dispatchTransaction(transaction: any) {
 		const editorState = this.state.apply(transaction);
 		this.updateState(editorState);
 		if (transaction.docChanged) {
@@ -64,7 +64,7 @@
 	});
 
 	onMount(() => {
-		editorView = new EditorView(prosemirrorNode, {
+		editorView = new EditorView(prosemirrorNode as any, {
 			state: editorState,
 			dispatchTransaction
 		});

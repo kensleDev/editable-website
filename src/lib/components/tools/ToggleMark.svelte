@@ -15,7 +15,7 @@
 	$: markType = schema.marks[type];
 
 	$: command = toggleMark(markType);
-	$: disabled = !markType || !command(editorState, null);
+	$: disabled = !markType || !command(editorState, undefined);
 	$: active = markActive(markType)(editorState);
 
 	function handleClick() {
