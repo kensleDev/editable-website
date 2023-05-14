@@ -121,6 +121,41 @@ You can deploy your editable website anywhere else as well. For instance if you'
 
 If you have questions or need help (with development or deployment), send me an email (michael@letsken.com) and suggest a few slots where you have time for a 30 minute chat (I'm based in Austria GMT+1).
 
+## Docker
+
+### Docker setup, Postgres and Minio with docker compose
+For a docker setup that boots up postgres and minio in containers, simply run:
+```bash
+docker compose up
+```
+
+For Minio you would also need to login locally to http://127.0.0.1:9001/ with the credentials in the docker compose file: `EDITABLEUSER/EDITABLEPASSWORD`.
+- Create access keys and put these credentials in your .env. as `S3_ACCESS_KEY` and `S3_SECRET_ACCESS_KEY`.
+- Create a bucket called `editable-website`. Set it to be accessible to the public.
+- Create `.env` file and make sure the following environment variables are defined:
+```bash
+DB_URL=postgresql://postgres:postgres@localhost:5434/editable-website
+ADMIN_PASSWORD=<your-admin-password-to-website>
+S3_ACCESS_KEY=<your-minio-access-key>
+S3_SECRET_ACCESS_KEY=<your-minio-secret-access-key>
+S3_ENDPOINT=http://127.0.0.1:9000
+S3_BUCKET=<bucket-name(editable-website)>
+PUBLIC_ASSET_PATH=http://127.0.0.1:9000/editable-website
+```
+
+Seed the database:
+
+```bash
+psql postgresql://postgres:postgres@localhost:5434/editable-website -a -f sql/schema.sql
+```
+
+### Local setup, Postgres and Minio
+If you want to connect to a local database you can set the `DB_URL` to `postgresql://$USER@localhost:5432/editable-website`
+With that database url you can seed the database with:
+```bash
+psql -h localhost -U $USER -d editable-website -a -f sql/schema.sql
+```
+
 ## Examples
 Community provided examples of additional features you can add to your editable website:
 - [ChatGPT completion tool](https://github.com/nilskj/editable-website)

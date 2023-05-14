@@ -146,10 +146,10 @@ export function resizeImage(file, maxWidth, maxHeight, quality) {
 export async function getDimensions(file) {
   return new Promise((resolve, reject) => {
     const img = new window.Image();
-    img.onload = function () {
+    img.onload = function() {
       resolve({ width: this.width, height: this.height });
     };
-    img.onerror = function () {
+    img.onerror = function() {
       reject(img.error);
     };
     img.src = URL.createObjectURL(file);
