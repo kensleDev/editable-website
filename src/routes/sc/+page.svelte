@@ -10,7 +10,6 @@
 	import EditorToolbar from '$lib/components/EditorToolbar.svelte';
 
 	import { testimonials } from '$lib/ui/testimonial/testimonial';
-
 	import Testimonial from '$lib/ui/testimonial/Testimonial.svelte';
 
 	export let data;
@@ -72,6 +71,7 @@
 				}
 			});
 			editable = false;
+
 			testimonials = $testimonials;
 		} catch (err) {
 			console.error(err);

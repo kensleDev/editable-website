@@ -26,12 +26,12 @@ export const marks = {
 		parseDOM: [
 			{
 				tag: 'a[href]',
-				getAttrs(dom) {
+				getAttrs(dom: any) {
 					return { href: dom.getAttribute('href'), title: dom.getAttribute('title') };
 				}
 			}
 		],
-		toDOM(node) {
+		toDOM(node: any) {
 			const { href, title } = node.attrs;
 			return ['a', { href, title }, 0];
 		}
@@ -70,7 +70,7 @@ export const marks = {
  * Schema to represent a single line of plain text
  * @type {Schema}
  */
-export const singleLinePlainTextSchema = new Schema({
+export const singleLinePlainTextSchema: Schema = new Schema({
 	nodes: {
 		doc: { content: 'text*' },
 		text: { inline: true }
@@ -81,7 +81,7 @@ export const singleLinePlainTextSchema = new Schema({
  * Schema to represent a single line of plain text
  * @type {Schema}
  */
-export const singleLineRichTextSchema = new Schema({
+export const singleLineRichTextSchema: Schema = new Schema({
 	nodes: {
 		doc: { content: 'text*' },
 		text: { inline: true }
@@ -92,7 +92,7 @@ export const singleLineRichTextSchema = new Schema({
  * Schema to represent rich text
  * @type {Schema}
  */
-export const multiLineRichTextSchema = new Schema({
+export const multiLineRichTextSchema: Schema = new Schema({
 	nodes: {
 		// :: NodeSpec The top level document node.
 		doc: {

@@ -5,7 +5,7 @@ const OAUTH_PROVIDERS = ['google', 'discord', 'github'];
 
 export const actions = {
 	login: async ({ request, locals, url }) => {
-		const provider = url.searchParams.get('provider') 
+		const provider = url.searchParams.get('provider');
 
 		if (provider) {
 			if (!OAUTH_PROVIDERS.includes(provider)) {

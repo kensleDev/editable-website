@@ -24,7 +24,7 @@
 		const extension = 'webp';
 		const path = [['editable-website', 'images', uuid()].join('/'), extension].join('.');
 
-		const resizedBlob = (await resizeImage(file, maxWidth, maxHeight, quality)) as BlobPart;
+		const resizedBlob = (await resizeImage(file, maxWidth, maxHeight, quality)) as any;
 		const resizedFile = new File([resizedBlob], `${file.name.split('.')[0]}.webp`, {
 			type: 'image/webp'
 		});

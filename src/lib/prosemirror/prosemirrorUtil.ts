@@ -26,7 +26,7 @@ export function toPlainText(editorState: EditorState): string {
 	} else if (editorState.doc.childCount === 1) {
 		return editorState.doc.textContent;
 	} else {
-		let paragraphs = [];
+		const paragraphs = [];
 		for (let i = 0; i < editorState.doc.childCount; i++) {
 			paragraphs.push(editorState.doc.child(i).textContent);
 		}
@@ -79,7 +79,7 @@ export function linkActive(type: MarkType) {
 	};
 }
 
-export function blockTypeActive(type: string, attrs: { [key: string]: any }) {
+export function blockTypeActive(type: NodeType, attrs: { [key: string]: any }) {
 	return function (state: any) {
 		// HACK: we fill in the id attribute if present, so the comparison works
 		const dynAttrs = Object.assign({}, attrs);

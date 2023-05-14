@@ -31,7 +31,7 @@
 		const maxHeight = 1440;
 		const quality = 0.8;
 
-		const resizedBlob = (await resizeImage(file, maxWidth, maxHeight, quality)) as BlobPart;
+		const resizedBlob = (await resizeImage(file, maxWidth, maxHeight, quality)) as any;
 		const resizedFile = new File([resizedBlob], `${file.name.split('.')[0]}.webp`, {
 			type: 'image/webp'
 		});

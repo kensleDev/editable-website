@@ -9,7 +9,7 @@
 	import EditableWebsiteTeaser from '$lib/components/EditableWebsiteTeaser.svelte';
 
 	export let data;
-	let showUserMenu: boolean = false;
+	let showUserMenu = false;
 
 	$: session = data.session;
 </script>

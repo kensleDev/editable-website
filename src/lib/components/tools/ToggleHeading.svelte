@@ -13,7 +13,7 @@
 	$: disabled =
 		!setBlockType(schema.nodes.heading)(editorState) &&
 		!setBlockType(schema.nodes.paragraph)(editorState);
-	$: active = blockTypeActive(schema.nodes.heading.toString(), { level: 1 })(editorState);
+	$: active = blockTypeActive(schema.nodes.heading, { level: 1 })(editorState);
 
 	function handleClick() {
 		if (active) {
