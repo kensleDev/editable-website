@@ -15,7 +15,10 @@
 	import EditorToolbar from '$lib/components/EditorToolbar.svelte';
 	import type { PageData } from './$types';
 	import Testimonals from '$lib/features/testimonials/Testimonals.svelte';
+
 	import { testimonialsStore } from '$lib/features/testimonials/testimonials.store';
+	import { bioStore } from '$lib/features/bio/bio.store';
+	import Bio from '$lib/features/bio/Bio.svelte';
 
 	export let data: PageData;
 
@@ -27,11 +30,6 @@
 	// DEFAULT PAGE CONTENT - AJDUST TO YOUR NEEDS
 	// --------------------------------------------------------------------------
 
-	const EMAIL = 'michael@letsken.com';
-
-	// Can contain spaces but must not contain the + sign
-	const PHONE_NUMBER = '43 664 1533015';
-
 	const FAQS_PLACEHOLDER = `
 		<h2>Question 1</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mi lectus, pellentesque nec urna eget, pretium dictum arcu. In rutrum pretium leo, id efficitur nisl ullamcorper sit amet.</p>
@@ -39,11 +37,11 @@
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mi lectus, pellentesque nec urna eget, pretium dictum arcu. In rutrum pretium leo, id efficitur nisl ullamcorper sit amet.</p>
 	`;
 
-	const BIO_PLACEHOLDER = `
-		<p>Modern tools, such as Svelte and Tailwind allow you to easily hand-craft fast and beautiful websites. What’s missing is the ability to <strong>make edits without changing the source code</strong>.</p>
-		<p>With this <a href="https://github.com/michael/editable-website">open-source website template</a>, I want to fill that gap.</p>
-    <p>If you have questions or need any help, contact me.</p>
-	`;
+	// const BIO_PLACEHOLDER = `
+	// 	<p>Modern tools, such as Svelte and Tailwind allow you to easily hand-craft fast and beautiful websites. What’s missing is the ability to <strong>make edits without changing the source code</strong>.</p>
+	// 	<p>With this <a href="https://github.com/michael/editable-website">open-source website template</a>, I want to fill that gap.</p>
+	//    <p>If you have questions or need any help, contact me.</p>
+	// `;
 
 	let editable: boolean;
 	let title: string;
@@ -107,9 +105,9 @@
 				}
 			)
 		);
-		bioPicture = data.page?.bioPicture || '/images/person-placeholder.jpg';
-		bioTitle = data.page?.bioTitle || "Hi, I'm Michael — I want your website to be editable.";
-		bio = data.page?.bio || BIO_PLACEHOLDER;
+
+		bioStore.setBio(data.page?.bio, data.page?.bioTitle, data.page?.bioTitle);
+
 		editable = false;
 	}
 
@@ -136,9 +134,9 @@
 						introStep2,
 						introStep3,
 						introStep4,
-						bioPicture,
-						bioTitle,
-						bio
+						bioPicture: $bioStore.image,
+						bioTitle: $bioStore.title,
+						bio: $bioStore.content
 					}
 				});
 			}
@@ -252,39 +250,40 @@
 {/if}
 
 <!-- Bio -->
-<div id="contact" class="bg-white border-t-2 border-b-2 border-gray-100 pb-12 sm:pb-24">
-	<div class="max-w-screen-md mx-auto px-6">
-		<div class="pt-12 sm:pt-24 pb-12 text-center">
-			<Image
-				className="inline-block w-48 h-48 md:w-72 md:h-72 rounded-full"
-				maxWidth="384"
-				maxHeight="384"
-				quality="0.8"
-				{editable}
-				{session}
-				bind:src={bioPicture}
-				alt="Michael Aufreiter"
-			/>
-		</div>
-		<div class="">
-			<h1 class="text-3xl md:text-5xl font-bold">
-				<PlainText {editable} bind:content={bioTitle} />
-			</h1>
-		</div>
-		<div class="prose md:prose-xl pb-6">
-			<RichText multiLine {editable} bind:content={bio} />
-		</div>
-
-		<NotEditable {editable}>
-			<div class="flex flex-col sm:flex-row sm:space-x-6 md:space-x-8 space-y-4 sm:space-y-0">
-				<PrimaryButton size="lg" href={`mailto:${EMAIL}`}>Email</PrimaryButton>
-				<SecondaryButton size="lg" href={`https://wa.me/${PHONE_NUMBER.replace(/\s+/g, '')}`}>
-					WhatsApp (+{PHONE_NUMBER})
-				</SecondaryButton>
-			</div>
-		</NotEditable>
-	</div>
-</div>
+<Bio {editable} {session} />
+<!-- <div id="contact" class="bg-white border-t-2 border-b-2 border-gray-100 pb-12 sm:pb-24"> -->
+<!-- 	<div class="max-w-screen-md mx-auto px-6"> -->
+<!-- 		<div class="pt-12 sm:pt-24 pb-12 text-center"> -->
+<!-- 			<Image -->
+<!-- 				className="inline-block w-48 h-48 md:w-72 md:h-72 rounded-full" -->
+<!-- 				maxWidth="384" -->
+<!-- 				maxHeight="384" -->
+<!-- 				quality="0.8" -->
+<!-- 				{editable} -->
+<!-- 				{session} -->
+<!-- 				bind:src={bioPicture} -->
+<!-- 				alt="Michael Aufreiter" -->
+<!-- 			/> -->
+<!-- 		</div> -->
+<!-- 		<div class=""> -->
+<!-- 			<h1 class="text-3xl md:text-5xl font-bold"> -->
+<!-- 				<PlainText {editable} bind:content={bioTitle} /> -->
+<!-- 			</h1> -->
+<!-- 		</div> -->
+<!-- 		<div class="prose md:prose-xl pb-6"> -->
+<!-- 			<RichText multiLine {editable} bind:content={bio} /> -->
+<!-- 		</div> -->
+<!---->
+<!-- 		<NotEditable {editable}> -->
+<!-- 			<div class="flex flex-col sm:flex-row sm:space-x-6 md:space-x-8 space-y-4 sm:space-y-0"> -->
+<!-- 				<PrimaryButton size="lg" href={`mailto:${EMAIL}`}>Email</PrimaryButton> -->
+<!-- 				<SecondaryButton size="lg" href={`https://wa.me/${PHONE_NUMBER.replace(/\s+/g, '')}`}> -->
+<!-- 					WhatsApp (+{PHONE_NUMBER}) -->
+<!-- 				</SecondaryButton> -->
+<!-- 			</div> -->
+<!-- 		</NotEditable> -->
+<!-- 	</div> -->
+<!-- </div> -->
 
 <!-- FAQs -->
 <div class="bg-white">

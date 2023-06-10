@@ -15,7 +15,7 @@ const TESTIMONIALS_PLACEHOLDER: TestimonialT[] = [
 	}
 ];
 
-export const newTestimonialStore = () => {
+export const newBioStore = () => {
 	const testimonials = writable<TestimonialT[]>(
 		JSON.parse(JSON.stringify(TESTIMONIALS_PLACEHOLDER))
 	);
@@ -66,4 +66,4 @@ export const newTestimonialStore = () => {
 	};
 };
 
-export const testimonialsStore = newTestimonialStore();
+export const testimonialsStore = newBioStore();
