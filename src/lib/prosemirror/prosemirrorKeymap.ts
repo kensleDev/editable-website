@@ -42,12 +42,13 @@ const mac = typeof navigator != 'undefined' ? /Mac|iP(hone|[oa]d)/.test(navigato
 /// You can suppress or map these bindings by passing a `mapKeys`
 /// argument, which maps key names (say `"Mod-B"` to either `false`, to
 /// remove the binding, or a new key name string.
-export function buildKeymap(schema: any, mapKeys: any) {
-	let keys: any = {},
-		type;
+export function buildKeymap(schema: any, mapKeys?: any) {
+	const keys: any = {};
+	let type;
+
 	function bind(key: any, cmd: any) {
 		if (mapKeys) {
-			let mapped = mapKeys[key];
+			const mapped = mapKeys[key];
 			if (mapped === false) return;
 			if (mapped) key = mapped;
 		}
@@ -78,7 +79,7 @@ export function buildKeymap(schema: any, mapKeys: any) {
 	if ((type = schema.nodes.ordered_list)) bind('Shift-Ctrl-9', wrapInList(type));
 	if ((type = schema.nodes.blockquote)) bind('Ctrl->', wrapIn(type));
 	if ((type = schema.nodes.hard_break)) {
-		let br = type,
+		const br = type,
 			cmd = chainCommands(exitCode, (state, dispatch) => {
 				if (dispatch) dispatch(state.tr.replaceSelectionWith(br.create()).scrollIntoView());
 				return true;
@@ -95,7 +96,7 @@ export function buildKeymap(schema: any, mapKeys: any) {
 	if ((type = schema.nodes.heading))
 		for (let i = 1; i <= 6; i++) bind('Shift-Ctrl-' + i, setBlockType(type, { level: i }));
 	if ((type = schema.nodes.horizontal_rule)) {
-		let hr = type;
+		const hr = type;
 		bind('Mod-_', (state: any, dispatch: any) => {
 			if (dispatch) dispatch(state.tr.replaceSelectionWith(hr.create()).scrollIntoView());
 			return true;

@@ -5,6 +5,7 @@ const S3_BUCKET = import.meta.env.VITE_S3_BUCKET;
 
 import aws from 'aws-sdk';
 import { json } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
 
 // Create a new S3 instance for interacting with our MinIO space. We use S3 because
 // the API is the same between MinIO and AWS S3.
@@ -17,11 +18,11 @@ const spaces = new aws.S3({
   s3ForcePathStyle: true
 });
 
-export function GET({ url, locals }) {
-  const currentUser = locals.user;
+export const GET: RequestHandler = async ({url, locals}) => {
+  const session = await locals.getSession();
   const path = url.searchParams.get('path'); // e.g. 'nachmachen/test/meh.jpg'
   const type = url.searchParams.get('type'); // e.g. 'image/jpeg'
-  if (!currentUser) throw new Error('Not authorized');
+  if (!session) throw new Error('Not authorized');
 
   const params = {
     Bucket: S3_BUCKET,
@@ -31,7 +32,7 @@ export function GET({ url, locals }) {
     ACL: 'public-read' // Remove this to make the file private
   };
 
-  let signedUrl = spaces.getSignedUrl('putObject', params);
+  const signedUrl = spaces.getSignedUrl('putObject', params);
   // console.log('signedUrl', signedUrl);
   // console.log('S3_ACCESS_KEY', S3_ACCESS_KEY);
   // console.log('S3_SECRET_ACCESS_KEY', S3_SECRET_ACCESS_KEY);

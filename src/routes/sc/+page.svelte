@@ -12,14 +12,15 @@
 	import { testimonials } from '$lib/ui/testimonial/testimonial';
 
 	import Testimonial from '$lib/ui/testimonial/Testimonial.svelte';
+	import type { PageData } from '../$types';
 
-	export let data;
+	export let data: PageData;
 	$: session = data.session;
 
-	let editable = false,
-		showUserMenu = false,
-		title = '',
-		sc;
+	let editable = false;
+	let showUserMenu = false;
+	let title = '';
+	let sc: any;
 
 	// --------------------------------------------------------------------------
 	// DEFAULT PAGE CONTENT - AJDUST TO YOUR NEEDS

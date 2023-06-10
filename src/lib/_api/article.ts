@@ -1,6 +1,7 @@
 import slugify from 'slugify';
 import { db } from './client';
-import type { Article, Session } from '@prisma/client';
+import type { Article } from '@prisma/client';
+import type { Session } from '@supabase/auth-helpers-svelte'
 
 export async function createArticle(
 	title: string,

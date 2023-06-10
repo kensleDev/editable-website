@@ -8,15 +8,19 @@
 	import Modal from '$lib/components/Modal.svelte';
 	import LoginMenu from '$lib/components/LoginMenu.svelte';
 	import ArticleTeaser from '$lib/components/ArticleTeaser.svelte';
-	import Testimonial from '$lib/components/Testimonial.svelte';
 	import IntroStep from '$lib/components/IntroStep.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import Image from '$lib/components/Image.svelte';
 	import NotEditable from '$lib/components/NotEditable.svelte';
 	import EditorToolbar from '$lib/components/EditorToolbar.svelte';
+	import type { PageData } from './$types';
+	import Testimonals from '$lib/features/testimonials/Testimonals.svelte';
+	import { testimonialsStore } from '$lib/features/testimonials/testimonials.store';
 
-	export let data;
+	export let data: PageData;
+
 	$: session = data.session;
+	// $: currentUser = data.currentUser;
 	// $: console.log({ session });
 
 	// --------------------------------------------------------------------------
@@ -41,17 +45,9 @@
     <p>If you have questions or need any help, contact me.</p>
 	`;
 
-	const TESTIMONIALS_PLACEHOLDER = [
-		{
-			text: '“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mi lectus, pellentesque nec urna eget, pretium dictum arcu. In rutrum pretium leo, id efficitur nisl ullamcorper sit amet.”',
-			image: '/images/person-placeholder.jpg',
-			name: 'Jane Doe · jane-doe.org'
-		}
-	];
-
 	let editable: boolean;
 	let title: string;
-	let testimonials: any;
+	// let testimonials = testimonialsStore.set([]);
 	let faqs: any;
 	let introStep1: any;
 	let introStep2: any;
@@ -62,12 +58,18 @@
 	let bio: any;
 	let showUserMenu: boolean;
 
+	// console.log({ testimonials });
+
 	function initOrReset() {
 		title = data.page?.title || 'Untitled Website';
 		faqs = data.page?.faqs || FAQS_PLACEHOLDER;
 
 		// Make a deep copy
-		testimonials = JSON.parse(JSON.stringify(data.page?.testimonials || TESTIMONIALS_PLACEHOLDER));
+		// testimonials = JSON.parse(JSON.stringify(data.page?.testimonials || TESTIMONIALS_PLACEHOLDER));
+		if (data.page?.testimonials)
+			testimonialsStore.set(JSON.parse(JSON.stringify(data.page?.testimonials)));
+
+		// testimonialsStore.set()
 
 		introStep1 = JSON.parse(
 			JSON.stringify(
@@ -120,36 +122,6 @@
 		showUserMenu = false;
 	}
 
-	function addTestimonial() {
-		testimonials.push({
-			text: '“Add a quote text here”',
-			image: '/images/person-placeholder.jpg',
-			name: 'Firstname Lastname · example.com'
-		});
-		testimonials = testimonials; // trigger update
-	}
-
-	function deleteTestimonial(index: number) {
-		testimonials.splice(index, 1);
-		testimonials = testimonials; // trigger update
-	}
-
-	function moveTestimonial(index: number, direction: 'up' | 'down') {
-		let toIndex;
-		if (direction === 'up' && index > 0) {
-			toIndex = index - 1;
-		} else if (direction === 'down' && index < testimonials.length - 1) {
-			toIndex = index + 1;
-		} else {
-			return; // operation not possible
-		}
-		// Remove item from original position
-		const element = testimonials.splice(index, 1)[0];
-		// Insert at new position
-		testimonials.splice(toIndex, 0, element);
-		testimonials = testimonials; // trigger update
-	}
-
 	async function savePage() {
 		try {
 			// Only persist the start page when logged in as an admin
@@ -159,7 +131,7 @@
 					page: {
 						title,
 						faqs,
-						testimonials,
+						testimonials: $testimonialsStore,
 						introStep1,
 						introStep2,
 						introStep3,
@@ -264,29 +236,7 @@
 	</div>
 </div>
 
-<div class="bg-white pb-6 sm:pb-12">
-	<div class="max-w-screen-md mx-auto px-6">
-		<div class="font-bold text-sm sm:text-base py-12 sm:pt-24 pb-8">WHAT PEOPLE SAY</div>
-	</div>
-	{#each testimonials as testimonial, i}
-		<Testimonial
-			{editable}
-			{session}
-			bind:testimonial
-			firstEntry={i === 0}
-			lastEntry={i === testimonials.length - 1}
-			on:delete={() => deleteTestimonial(i)}
-			on:up={() => moveTestimonial(i, 'up')}
-			on:down={() => moveTestimonial(i, 'down')}
-		/>
-	{/each}
-
-	{#if editable}
-		<div class="text-center pb-12 border-b border-gray-100">
-			<SecondaryButton on:click={addTestimonial}>Add testimonial</SecondaryButton>
-		</div>
-	{/if}
-</div>
+<Testimonals testimonials={$testimonialsStore} {session} {editable} />
 
 {#if data.articles.length > 0}
 	<NotEditable {editable}>

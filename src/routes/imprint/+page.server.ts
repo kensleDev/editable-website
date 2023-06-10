@@ -1,10 +1,7 @@
 import { getPage } from '$lib/_api';
 
-export async function load({ locals }) {
-  const currentUser = locals.user;
-  const page = await getPage('imprint');
+export async function load() {
   return {
-    currentUser,
-    page
+    page: getPage('imprint')
   };
 }

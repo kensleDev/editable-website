@@ -1,11 +1,11 @@
 import { AuthApiError } from '@supabase/supabase-js';
-import { fail, redirect } from '@sveltejs/kit';
+import { fail, redirect, type Actions } from '@sveltejs/kit';
 
 const OAUTH_PROVIDERS = ['google', 'discord', 'github'];
 
-export const actions = {
+export const actions: Actions= {
 	login: async ({ request, locals, url }) => {
-		const provider = url.searchParams.get('provider') 
+		const provider = url.searchParams.get('provider') as any
 
 		if (provider) {
 			if (!OAUTH_PROVIDERS.includes(provider)) {
@@ -33,8 +33,8 @@ export const actions = {
 
 		if (body) {
 			const { error: err } = await locals.supabase.auth.signInWithPassword({
-				email: body.email,
-				password: body.password
+				email: body.email as string,
+				password: body.password as string
 			});
 
 			if (err) {
