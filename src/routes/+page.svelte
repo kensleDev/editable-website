@@ -1,14 +1,12 @@
 <script lang="ts">
-	import PlainText from '$lib/components/PlainText.svelte';
 	import { fetchJSON } from '$lib/util';
-	import PrimaryButton from '$lib/components/PrimaryButton.svelte';
 	import WebsiteNav from '$lib/components/WebsiteNav.svelte';
-	import Modal from '$lib/components/Modal.svelte';
-	import LoginMenu from '$lib/components/LoginMenu.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import NotEditable from '$lib/components/NotEditable.svelte';
 	import EditorToolbar from '$lib/components/EditorToolbar.svelte';
 	import type { PageData } from './$types';
+
+	import Head from '$lib/features/userMenu/Head.svelte';
+	import { headStore } from '$lib/features/head/head.store';
 
 	import Testimonals from '$lib/features/testimonials/Testimonals.svelte';
 	import { testimonialsStore } from '$lib/features/testimonials/testimonials.store';
@@ -21,8 +19,8 @@
 
 	import { introStepsStore } from '$lib/features/introSteps/introSteps.store';
 	import IntroSteps from '$lib/features/introSteps/IntroSteps.svelte';
-
 	const { stepOne, stepTwo, stepThree, stepFour } = introStepsStore;
+
 	import ArticleList from '$lib/features/articles/ArticleList.svelte';
 	import IntroHero from '$lib/features/introHero/IntroHero.svelte';
 	import UserMenu from '$lib/features/userMenu/UserMenu.svelte';
@@ -42,6 +40,8 @@
 	let showUserMenu: boolean;
 
 	function initOrReset() {
+		if (data.page?.head) headStore.set(data.page?.head);
+
 		title = data.page?.title || 'Untitled Website';
 
 		if (data.page?.faqs) faqStore.set(data.page?.faqs);
@@ -80,6 +80,7 @@
 				await fetchJSON('POST', '/api/save-page', {
 					pageId: 'home',
 					page: {
+						head: $headStore,
 						title,
 						faqs: $faqStore,
 						testimonials: $testimonialsStore,
@@ -94,6 +95,7 @@
 				});
 			}
 			editable = false;
+			showUserMenu = false;
 		} catch (err) {
 			console.error(err);
 			alert('There was an error. Please try again.');
@@ -103,12 +105,7 @@
 	initOrReset();
 </script>
 
-<svelte:head>
-	<title>Make your website editable</title>
-	<meta name="description" content="Make changes to your website while browsing it." />
-	<link rel="alternate" hreflang="en" href="https://editable.website" />
-	<link rel="canonical" href="https://editable.website" />
-</svelte:head>
+<Head />
 
 {#if editable}
 	<EditorToolbar {session} on:cancel={initOrReset} on:save={savePage} />
@@ -116,13 +113,13 @@
 
 <WebsiteNav bind:showUserMenu {session} bind:editable />
 
-<UserMenu {session} {showUserMenu} {toggleEdit} {closeUserMenu} />
+<UserMenu {session} {showUserMenu} {toggleEdit} {closeUserMenu} on:save={savePage} />
 
 <IntroHero {editable} {toggleEdit} {title} />
 
 <IntroSteps {editable} />
 
-<Testimonals testimonials={$testimonialsStore} {session} {editable} />
+<Testimonals {session} {editable} />
 
 <ArticleList {editable} view="preview" articles={data?.articles} />
 

@@ -14,15 +14,6 @@
 
 	// Can contain spaces but must not contain the + sign
 	const PHONE_NUMBER = '43 664 1533015';
-
-	// export let data = {
-	// 	bio: {
-	// 		picture: '/images/michael.jpg',
-	// 		title: 'Michael Aufreiter',
-	// 		bio
-	// 	}
-	// };
-	// $: console.log({ $bioStore });
 </script>
 
 <!-- Bio -->
