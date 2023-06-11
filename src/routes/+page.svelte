@@ -24,6 +24,8 @@
 
 	const { stepOne, stepTwo, stepThree, stepFour } = introStepsStore;
 	import ArticleList from '$lib/features/articles/ArticleList.svelte';
+	import IntroHero from '$lib/features/introHero/IntroHero.svelte';
+	import UserMenu from '$lib/features/userMenu/UserMenu.svelte';
 
 	export let data: PageData;
 
@@ -64,6 +66,10 @@
 
 	function toggleEdit() {
 		editable = true;
+		showUserMenu = false;
+	}
+
+	function closeUserMenu() {
 		showUserMenu = false;
 	}
 
@@ -110,42 +116,9 @@
 
 <WebsiteNav bind:showUserMenu {session} bind:editable />
 
-{#if showUserMenu}
-	<Modal on:close={() => (showUserMenu = false)}>
-		<form class="w-full block" method="POST">
-			<div class="w-full flex flex-col space-y-4 p-4 sm:p-6">
-				<PrimaryButton on:click={toggleEdit}>Edit page</PrimaryButton>
-				<LoginMenu {session} />
-			</div>
-		</form>
-	</Modal>
-{/if}
+<UserMenu {session} {showUserMenu} {toggleEdit} {closeUserMenu} />
 
-<div>
-	<div class="max-w-screen-md mx-auto px-6 pt-12 sm:pt-24">
-		<NotEditable {editable}>
-			<svg
-				class="pb-8 w-14 sm:w-24 mx-auto"
-				viewBox="0 0 200 200"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<path d="M164 110L64 163.768V200L164 147.059V110Z" fill="#111827" />
-				<path d="M136 66L36 119.768V156L136 103.059V66Z" fill="#111827" />
-				<path d="M164 0L64 53.7684V90L164 37.0588V0Z" fill="#111827" />
-			</svg>
-		</NotEditable>
-		<h1 class="text-4xl md:text-7xl font-bold text-center">
-			<PlainText {editable} bind:content={title} />
-		</h1>
-		<NotEditable {editable}>
-			<div class="text-center pt-8 pb-4 bounce text-xl">↓</div>
-			<div class="text-center">
-				<PrimaryButton size="lg" type="button" on:click={toggleEdit}>Edit</PrimaryButton>
-			</div>
-		</NotEditable>
-	</div>
-</div>
+<IntroHero {editable} {toggleEdit} {title} />
 
 <IntroSteps {editable} />
 
