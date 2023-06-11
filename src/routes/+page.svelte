@@ -1,24 +1,29 @@
 <script lang="ts">
 	import PlainText from '$lib/components/PlainText.svelte';
-	import RichText from '$lib/components/RichText.svelte';
 	import { fetchJSON } from '$lib/util';
 	import PrimaryButton from '$lib/components/PrimaryButton.svelte';
-	import SecondaryButton from '$lib/components/SecondaryButton.svelte';
 	import WebsiteNav from '$lib/components/WebsiteNav.svelte';
 	import Modal from '$lib/components/Modal.svelte';
 	import LoginMenu from '$lib/components/LoginMenu.svelte';
-	import ArticleTeaser from '$lib/components/ArticleTeaser.svelte';
-	import IntroStep from '$lib/components/IntroStep.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import Image from '$lib/components/Image.svelte';
 	import NotEditable from '$lib/components/NotEditable.svelte';
 	import EditorToolbar from '$lib/components/EditorToolbar.svelte';
 	import type { PageData } from './$types';
-	import Testimonals from '$lib/features/testimonials/Testimonals.svelte';
 
+	import Testimonals from '$lib/features/testimonials/Testimonals.svelte';
 	import { testimonialsStore } from '$lib/features/testimonials/testimonials.store';
+
 	import { bioStore } from '$lib/features/bio/bio.store';
 	import Bio from '$lib/features/bio/Bio.svelte';
+
+	import { faqStore } from '$lib/features/faq/faq.store';
+	import Faq from '$lib/features/faq/Faq.svelte';
+
+	import { introStepsStore } from '$lib/features/introSteps/introSteps.store';
+	import IntroSteps from '$lib/features/introSteps/IntroSteps.svelte';
+
+	const { stepOne, stepTwo, stepThree, stepFour } = introStepsStore;
+	import ArticleList from '$lib/features/articles/ArticleList.svelte';
 
 	export let data: PageData;
 
@@ -30,81 +35,23 @@
 	// DEFAULT PAGE CONTENT - AJDUST TO YOUR NEEDS
 	// --------------------------------------------------------------------------
 
-	const FAQS_PLACEHOLDER = `
-		<h2>Question 1</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mi lectus, pellentesque nec urna eget, pretium dictum arcu. In rutrum pretium leo, id efficitur nisl ullamcorper sit amet.</p>
-    <h2>Question 2</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mi lectus, pellentesque nec urna eget, pretium dictum arcu. In rutrum pretium leo, id efficitur nisl ullamcorper sit amet.</p>
-	`;
-
-	// const BIO_PLACEHOLDER = `
-	// 	<p>Modern tools, such as Svelte and Tailwind allow you to easily hand-craft fast and beautiful websites. What’s missing is the ability to <strong>make edits without changing the source code</strong>.</p>
-	// 	<p>With this <a href="https://github.com/michael/editable-website">open-source website template</a>, I want to fill that gap.</p>
-	//    <p>If you have questions or need any help, contact me.</p>
-	// `;
-
 	let editable: boolean;
 	let title: string;
-	// let testimonials = testimonialsStore.set([]);
-	let faqs: any;
-	let introStep1: any;
-	let introStep2: any;
-	let introStep3: any;
-	let introStep4: any;
-	let bioTitle: any;
-	let bioPicture: any;
-	let bio: any;
 	let showUserMenu: boolean;
-
-	// console.log({ testimonials });
 
 	function initOrReset() {
 		title = data.page?.title || 'Untitled Website';
-		faqs = data.page?.faqs || FAQS_PLACEHOLDER;
+
+		if (data.page?.faqs) faqStore.set(data.page?.faqs);
 
 		// Make a deep copy
-		// testimonials = JSON.parse(JSON.stringify(data.page?.testimonials || TESTIMONIALS_PLACEHOLDER));
 		if (data.page?.testimonials)
 			testimonialsStore.set(JSON.parse(JSON.stringify(data.page?.testimonials)));
 
-		// testimonialsStore.set()
-
-		introStep1 = JSON.parse(
-			JSON.stringify(
-				data.page?.introStep1 || {
-					label: 'THE PROBLEM',
-					title: 'The problem statement',
-					description: 'Describe the problem you are solving in a short sentence.'
-				}
-			)
-		);
-		introStep2 = JSON.parse(
-			JSON.stringify(
-				data.page?.introStep2 || {
-					label: 'THE DREAM',
-					title: 'This is how it should be.',
-					description: 'Describe why it should be like that.'
-				}
-			)
-		);
-		introStep3 = JSON.parse(
-			JSON.stringify(
-				data.page?.introStep3 || {
-					label: 'THE REALITY',
-					title: 'A statement why it is not that easy.',
-					description: 'Describe the reality a bit more.'
-				}
-			)
-		);
-		introStep4 = JSON.parse(
-			JSON.stringify(
-				data.page?.introStep4 || {
-					label: 'THE PROMISE',
-					title: 'Still the solution is worth it.',
-					description: 'And why this is, should be described here.'
-				}
-			)
-		);
+		if (data.page?.introStep1) stepOne.set(data.page?.introStep1);
+		if (data.page?.introStep2) stepTwo.set(data.page?.introStep2);
+		if (data.page?.introStep3) stepThree.set(data.page?.introStep3);
+		if (data.page?.introStep4) stepFour.set(data.page?.introStep4);
 
 		bioStore.setBio(data.page?.bio, data.page?.bioTitle, data.page?.bioTitle);
 
@@ -128,12 +75,12 @@
 					pageId: 'home',
 					page: {
 						title,
-						faqs,
+						faqs: $faqStore,
 						testimonials: $testimonialsStore,
-						introStep1,
-						introStep2,
-						introStep3,
-						introStep4,
+						introStep1: $stepOne,
+						introStep2: $stepTwo,
+						introStep3: $stepThree,
+						introStep4: $stepFour,
 						bioPicture: $bioStore.image,
 						bioTitle: $bioStore.title,
 						bio: $bioStore.content
@@ -200,99 +147,14 @@
 	</div>
 </div>
 
-<div class="pt-12 md:pt-24 border-gray-100 border-b-2">
-	<div class="max-w-screen-md mx-auto px-6">
-		<div class="relative">
-			<div class="w-1 bg-gray-900 absolute inset-0 -top-8 bottom-12 mx-auto z-0">
-				<div class="w-4 h-4 rounded-full bg-gray-900 absolute -top-1 -left-[6px]" />
-			</div>
-			<div class="z-10">
-				<IntroStep {editable} bind:intro={introStep1} />
-				<IntroStep {editable} bind:intro={introStep2} />
-				<IntroStep {editable} bind:intro={introStep3} />
-				<IntroStep {editable} bind:intro={introStep4} />
-			</div>
-		</div>
-		<div class="relative h-14">
-			<div class="w-1 bg-gray-900 absolute inset-0 -top-16 bottom-12 mx-auto z-0">
-				<div
-					class="absolute -bottom-2 -left-[7px] h-0 w-0 border-x-[9px] border-x-transparent border-t-[10px] border-gray-900"
-				/>
-			</div>
-		</div>
-		<div class="text-center mb-32">
-			<PrimaryButton
-				size="lg"
-				type="button"
-				on:click={() =>
-					document
-						.getElementById('contact')
-						?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-				>Create an editable website</PrimaryButton
-			>
-		</div>
-	</div>
-</div>
+<IntroSteps {editable} />
 
 <Testimonals testimonials={$testimonialsStore} {session} {editable} />
 
-{#if data.articles.length > 0}
-	<NotEditable {editable}>
-		<div class="bg-white border-t-2 border-gray-100 pb-10 sm:pb-16">
-			<div class="max-w-screen-md mx-auto px-6 pt-12 sm:pt-24">
-				<div class="font-bold text-sm sm:text-base">FROM THE BLOG</div>
-			</div>
-			{#each data.articles as article, i}
-				<ArticleTeaser {article} firstEntry={i === 0} />
-			{/each}
-		</div>
-	</NotEditable>
-{/if}
+<ArticleList {editable} view="preview" articles={data?.articles} />
 
-<!-- Bio -->
 <Bio {editable} {session} />
-<!-- <div id="contact" class="bg-white border-t-2 border-b-2 border-gray-100 pb-12 sm:pb-24"> -->
-<!-- 	<div class="max-w-screen-md mx-auto px-6"> -->
-<!-- 		<div class="pt-12 sm:pt-24 pb-12 text-center"> -->
-<!-- 			<Image -->
-<!-- 				className="inline-block w-48 h-48 md:w-72 md:h-72 rounded-full" -->
-<!-- 				maxWidth="384" -->
-<!-- 				maxHeight="384" -->
-<!-- 				quality="0.8" -->
-<!-- 				{editable} -->
-<!-- 				{session} -->
-<!-- 				bind:src={bioPicture} -->
-<!-- 				alt="Michael Aufreiter" -->
-<!-- 			/> -->
-<!-- 		</div> -->
-<!-- 		<div class=""> -->
-<!-- 			<h1 class="text-3xl md:text-5xl font-bold"> -->
-<!-- 				<PlainText {editable} bind:content={bioTitle} /> -->
-<!-- 			</h1> -->
-<!-- 		</div> -->
-<!-- 		<div class="prose md:prose-xl pb-6"> -->
-<!-- 			<RichText multiLine {editable} bind:content={bio} /> -->
-<!-- 		</div> -->
-<!---->
-<!-- 		<NotEditable {editable}> -->
-<!-- 			<div class="flex flex-col sm:flex-row sm:space-x-6 md:space-x-8 space-y-4 sm:space-y-0"> -->
-<!-- 				<PrimaryButton size="lg" href={`mailto:${EMAIL}`}>Email</PrimaryButton> -->
-<!-- 				<SecondaryButton size="lg" href={`https://wa.me/${PHONE_NUMBER.replace(/\s+/g, '')}`}> -->
-<!-- 					WhatsApp (+{PHONE_NUMBER}) -->
-<!-- 				</SecondaryButton> -->
-<!-- 			</div> -->
-<!-- 		</NotEditable> -->
-<!-- 	</div> -->
-<!-- </div> -->
 
-<!-- FAQs -->
-<div class="bg-white">
-	<div class="max-w-screen-md mx-auto px-6">
-		<div class="font-bold text-sm sm:text-base pt-12 sm:pt-24 -mb-6 md:-mb-12">FAQs</div>
-		<div class="prose md:prose-xl pb-12 sm:pb-24">
-			<RichText multiLine {editable} bind:content={faqs} />
-		</div>
-	</div>
-</div>
+<Faq {editable} />
 
 <Footer counter="/" {editable} />
