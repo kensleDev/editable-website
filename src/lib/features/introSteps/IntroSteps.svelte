@@ -2,8 +2,7 @@
 	import PrimaryButton from '$lib/components/PrimaryButton.svelte';
 	import IntroStep from './IntroStep.svelte';
 	import { introStepsStore } from './introSteps.store';
-
-	export let editable: boolean;
+	import { editable } from '$lib/stores/editable.store';
 </script>
 
 <div class="pt-12 md:pt-24 border-gray-100 border-b-2">
@@ -13,10 +12,10 @@
 				<div class="w-4 h-4 rounded-full bg-gray-900 absolute -top-1 -left-[6px]" />
 			</div>
 			<div class="z-10">
-				<IntroStep {editable} bind:intro={$introStepsStore[0]} />
-				<IntroStep {editable} bind:intro={$introStepsStore[1]} />
-				<IntroStep {editable} bind:intro={$introStepsStore[2]} />
-				<IntroStep {editable} bind:intro={$introStepsStore[3]} />
+				<IntroStep editable={$editable} bind:intro={$introStepsStore[0]} />
+				<IntroStep editable={$editable} bind:intro={$introStepsStore[1]} />
+				<IntroStep editable={$editable} bind:intro={$introStepsStore[2]} />
+				<IntroStep editable={$editable} bind:intro={$introStepsStore[3]} />
 			</div>
 		</div>
 		<div class="relative h-14">

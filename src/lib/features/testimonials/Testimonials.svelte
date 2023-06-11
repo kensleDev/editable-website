@@ -2,9 +2,10 @@
 	import { testimonialsStore } from './testimonials.store';
 	import SecondaryButton from '$lib/components/SecondaryButton.svelte';
 	import Testimonial from './Testimonial.svelte';
+	import { getContext } from 'svelte';
 
-	export let editable: boolean;
-	export let session: any;
+	import { editable } from '$lib/stores/editable.store';
+	import { session } from '$lib/stores/session.store';
 </script>
 
 <div class="bg-white pb-6 sm:pb-12">
@@ -13,8 +14,8 @@
 	</div>
 	{#each $testimonialsStore as testimonial, i}
 		<Testimonial
-			{editable}
-			{session}
+			editable={$editable}
+			session={$session}
 			bind:testimonial
 			firstEntry={i === 0}
 			lastEntry={i === $testimonialsStore.length - 1}
@@ -24,7 +25,7 @@
 		/>
 	{/each}
 
-	{#if editable}
+	{#if $editable}
 		<div class="text-center pb-12 border-b border-gray-100">
 			<SecondaryButton on:click={testimonialsStore.addTestimonial}>Add testimonial</SecondaryButton>
 		</div>

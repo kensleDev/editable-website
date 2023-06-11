@@ -3,15 +3,15 @@
 	import NotEditable from '$lib/components/NotEditable.svelte';
 	import type { Article } from '@prisma/client';
 	import { articlesStore } from './articles.store';
+	import { editable } from '$lib/stores/editable.store';
 
-	export let editable: boolean;
 	export let view: 'preview' | 'list';
 	export let articles: Article[] = $articlesStore;
 </script>
 
 {#if view === 'preview'}
 	{#if articles.length > 0}
-		<NotEditable {editable}>
+		<NotEditable editable={$editable}>
 			<div class="bg-white border-t-2 border-gray-100 pb-10 sm:pb-16">
 				<div class="max-w-screen-md mx-auto px-6 pt-12 sm:pt-24">
 					<div class="font-bold text-sm sm:text-base">FROM THE BLOG</div>

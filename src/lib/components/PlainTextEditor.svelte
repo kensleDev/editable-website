@@ -6,7 +6,7 @@
 		singleLinePlainTextSchema,
 		multiLinePlainTextSchema,
 		buildKeymap
-	} from '$lib/prosemirror';
+	} from '$lib/services/prosemirror';
 	import { activeEditorView } from '$lib/stores';
 	import { EditorState, Plugin } from 'prosemirror-state';
 	import { EditorView } from 'prosemirror-view';

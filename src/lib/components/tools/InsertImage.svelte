@@ -2,7 +2,7 @@
 	import { classNames, resizeImage, getDimensions } from '$lib/util';
 	import { uuid } from '$lib/util';
 	import uploadAsset from '$lib/uploadAsset';
-	import { insertImage } from '$lib/prosemirror';
+	import { insertImage } from '$lib/services/prosemirror';
 	import type { Session } from '@supabase/supabase-js';
 	import type { EditorView } from 'prosemirror-view';
 	import type { EditorState } from 'prosemirror-state';

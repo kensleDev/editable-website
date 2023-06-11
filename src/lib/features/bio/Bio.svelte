@@ -6,9 +6,8 @@
 	import RichText from '$lib/components/RichText.svelte';
 	import SecondaryButton from '$lib/components/SecondaryButton.svelte';
 	import { bioStore } from './bio.store';
-
-	export let editable: boolean;
-	export let session: any;
+	import { editable } from '$lib/stores/editable.store';
+	import { session } from '$lib/stores/session.store';
 
 	const EMAIL = 'michael@letsken.com';
 
@@ -25,22 +24,22 @@
 				maxWidth="384"
 				maxHeight="384"
 				quality="0.8"
-				{editable}
-				{session}
+				editable={$editable}
+				session={$session}
 				bind:src={$bioStore.image}
 				alt="Michael Aufreiter"
 			/>
 		</div>
 		<div class="">
 			<h1 class="text-3xl md:text-5xl font-bold">
-				<PlainText {editable} bind:content={$bioStore.title} />
+				<PlainText editable={$editable} bind:content={$bioStore.title} />
 			</h1>
 		</div>
 		<div class="prose md:prose-xl pb-6">
-			<RichText multiLine {editable} bind:content={$bioStore.content} />
+			<RichText multiLine editable={$editable} bind:content={$bioStore.content} />
 		</div>
 
-		<NotEditable {editable}>
+		<NotEditable editable={$editable}>
 			<div class="flex flex-col sm:flex-row sm:space-x-6 md:space-x-8 space-y-4 sm:space-y-0">
 				<PrimaryButton size="lg" href={`mailto:${EMAIL}`}>Email</PrimaryButton>
 				<SecondaryButton size="lg" href={`https://wa.me/${PHONE_NUMBER.replace(/\s+/g, '')}`}>

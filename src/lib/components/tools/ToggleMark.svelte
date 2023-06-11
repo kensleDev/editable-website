@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { toggleMark } from 'prosemirror-commands';
-	import { markActive } from '$lib/prosemirror';
+	import { markActive } from '$lib/services/prosemirror';
 	import { classNames } from '$lib/util';
 
 	import type { EditorState } from 'prosemirror-state';

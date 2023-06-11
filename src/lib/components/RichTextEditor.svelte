@@ -7,7 +7,7 @@
 		multiLineRichTextSchema,
 		buildKeymap,
 		buildInputRules
-	} from '$lib/prosemirror';
+	} from '$lib/services/prosemirror';
 
 	import { activeEditorView } from '$lib/stores';
 	import { EditorState, Plugin } from 'prosemirror-state';
