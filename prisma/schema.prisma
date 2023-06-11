@@ -29,6 +29,7 @@ model Session {
 model Page {
   page_id        String    @id
   data           Json
+  sections       Json @default("[]")
 }
 
 model Counter {

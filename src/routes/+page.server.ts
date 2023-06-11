@@ -1,7 +1,6 @@
 import { getArticles, getPage } from '$lib/_api';
-import type { PageServerLoad } from './$types';
 
-export async function load({ locals: { getSession } }: PageServerLoad) {
+export async function load({ locals: { getSession } }: any) {
 	const session = await getSession();
 
 	const articles = await getArticles(session);
@@ -9,7 +8,7 @@ export async function load({ locals: { getSession } }: PageServerLoad) {
 
 	return {
 		articles: articles.slice(0, 3),
-		page
-		// session
+		page: page.data,
+		sections: page.sections
 	};
 }

@@ -2,10 +2,10 @@
 	import NotEditable from '$lib/components/NotEditable.svelte';
 	import PlainText from '$lib/components/PlainText.svelte';
 	import PrimaryButton from '$lib/components/PrimaryButton.svelte';
+	import { titleStore } from '../title/title.store';
 
 	export let editable: boolean;
 	export let toggleEdit: () => void;
-	export let title: string;
 </script>
 
 <div>
@@ -23,7 +23,7 @@
 			</svg>
 		</NotEditable>
 		<h1 class="text-4xl md:text-7xl font-bold text-center">
-			<PlainText {editable} bind:content={title} />
+			<PlainText {editable} bind:content={$titleStore} />
 		</h1>
 		<NotEditable {editable}>
 			<div class="text-center pt-8 pb-4 bounce text-xl">↓</div>

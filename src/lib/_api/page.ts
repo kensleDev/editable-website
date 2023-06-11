@@ -52,8 +52,23 @@ export async function getPage(pageId: string): Promise<any> {
 			page_id: pageId
 		},
 		select: {
-			data: true
+			data: true,
+			sections: true
 		}
 	});
-	return page?.data ?? null;
+
+	return page ?? null;
+}
+
+export async function updatePageSections(pageId: string, newSections: string[]): Promise<any> {
+	const page = await db.page.update({
+		where: {
+			page_id: pageId
+		},
+		data: {
+			sections: newSections
+		}
+	});
+
+	return page ?? null;
 }

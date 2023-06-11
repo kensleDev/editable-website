@@ -2,10 +2,11 @@
 	import ArticleTeaser from './ArticleTeaser.svelte';
 	import NotEditable from '$lib/components/NotEditable.svelte';
 	import type { Article } from '@prisma/client';
+	import { articlesStore } from './articles.store';
 
 	export let editable: boolean;
 	export let view: 'preview' | 'list';
-	export let articles: Article[];
+	export let articles: Article[] = $articlesStore;
 </script>
 
 {#if view === 'preview'}

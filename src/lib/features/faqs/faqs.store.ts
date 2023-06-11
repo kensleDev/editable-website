@@ -25,4 +25,4 @@ export const newFaqStore = () => {
 	};
 };
 
-export const faqStore = newFaqStore();
+export const faqsStore = newFaqStore();
