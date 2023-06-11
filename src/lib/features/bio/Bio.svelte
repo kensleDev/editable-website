@@ -22,6 +22,7 @@
 	// 		bio
 	// 	}
 	// };
+	// $: console.log({ $bioStore });
 </script>
 
 <!-- Bio -->

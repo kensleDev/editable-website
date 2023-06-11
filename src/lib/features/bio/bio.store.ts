@@ -23,7 +23,7 @@ export const newTestimonialStore = () => {
 	});
 
 	function setBio(title?: string, image?: string, content?: string) {
-		console.log({ title, image, content });
+		// console.log({ title, image, content });
 		bio.update((s) => {
 			if (title) s.title = title;
 			if (image) s.image = image;
