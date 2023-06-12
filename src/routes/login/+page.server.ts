@@ -1,11 +1,18 @@
-import { AuthApiError } from '@supabase/supabase-js';
-import { fail, redirect, type Actions } from '@sveltejs/kit';
+import { AuthApiError, type Provider } from '@supabase/supabase-js';
+import { redirect } from '@sveltejs/kit';
+import { fail } from 'assert';
 
 const OAUTH_PROVIDERS = ['google', 'discord', 'github'];
 
-export const actions: Actions= {
-	login: async ({ request, locals, url }) => {
-		const provider = url.searchParams.get('provider') as any
+export const load = async ({ locals }: any) => {
+	const session = await locals.getSession();
+	if (session.user) throw redirect(303, '/');
+};
+
+export const actions = {
+	login: async ({ request, locals, url, session }: any) => {
+		if (session) redirect(303, '/');
+		const provider = url.searchParams.get('provider') as Provider;
 
 		if (provider) {
 			if (!OAUTH_PROVIDERS.includes(provider)) {
@@ -24,7 +31,7 @@ export const actions: Actions= {
 				});
 			}
 
-			// console.log({ data: oauthRes.data });
+			console.log({ data: oauthRes.data });
 
 			throw redirect(303, oauthRes.data.url);
 		}
@@ -52,47 +59,3 @@ export const actions: Actions= {
 		}
 	}
 };
-
-// import { AuthApiError, type Provider } from '@supabase/supabase-js';
-// import { fail, redirect } from '@sveltejs/kit';
-// import type { Actions } from './$types';
-
-// export const actions: Actions = {
-// 	login: async ({ request, locals, url }) => {
-// 		const provider = url.searchParams.get('provider') as Provider;
-
-// 		if (provider) {
-// 			const { data, error: err } = await locals.supabase.auth.signInWithOAuth({ provider });
-
-// 			if (err) {
-// 				console.log({ err });
-// 				return fail(500, {
-// 					message: 'Server error. Try again later.'
-// 				});
-// 			}
-
-// 			throw redirect(303, data.url);
-// 		}
-
-// 		console.log('in here');
-// 		const body = Object.fromEntries(await request.formData());
-
-// 		const { data, error: err } = await locals.supabase.auth.signInWithPassword({
-// 			email: body.email as string,
-// 			password: body.password as string
-// 		});
-
-// 		if (err) {
-// 			if (err instanceof AuthApiError && err.status === 400) {
-// 				return fail(400, {
-// 					error: 'Invalid credentials'
-// 				});
-// 			}
-// 			return fail(500, {
-// 				message: 'Server error. Try again later.'
-// 			});
-// 		}
-
-// 		throw redirect(303, '/');
-// 	}
-// };

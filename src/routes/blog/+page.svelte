@@ -4,7 +4,7 @@
 	import WebsiteNav from '$lib/components/WebsiteNav.svelte';
 	import Modal from '$lib/components/Modal.svelte';
 	import LoginMenu from '$lib/components/LoginMenu.svelte';
-	import ArticleTeaser from '$lib/components/ArticleTeaser.svelte';
+	import ArticleTeaser from '$lib/features/articles/ArticleTeaser.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import EditableWebsiteTeaser from '$lib/components/EditableWebsiteTeaser.svelte';
 

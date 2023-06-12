@@ -12,7 +12,6 @@
 		"example": "source .env && ts-node --esm './tools/genSupabaseTypes.ts' $DATABASE_URL"
 	},
 	"devDependencies": {
-		"@supabase/auth-helpers-svelte": "^0.4.6",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.5.3",
 		"@tailwindcss/forms": "^0.5.3",
@@ -23,7 +22,7 @@
 		"autoprefixer": "^10.4.14",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
-		"eslint-plugin-svelte3": "^4.0.0",
+		"eslint-plugin-svelte": "^2.26.0",
 		"postcss": "^8.4.21",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
@@ -42,6 +41,7 @@
 		"@fontsource/jost": "^4.5.13",
 		"@prisma/client": "^4.13.0",
 		"@supabase/auth-helpers-sveltekit": "^0.9.4",
+		"@supabase/supabase-js": "^2.24.0",
 		"@sveltejs/adapter-node": "^1.2.3",
 		"aws-sdk": "^2.1350.0",
 		"camelcase-keys": "^8.0.2",

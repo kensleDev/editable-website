@@ -1,5 +1,4 @@
-import { authActions } from '$lib/plugins/auth/actions';
-import type { Actions } from '@sveltejs/kit';
+// import { type Actions, redirect } from '@sveltejs/kit';
 import type { LayoutServerLoadEvent } from './$types';
 
 export const load = async ({ locals: { getSession } }: LayoutServerLoadEvent) => {
@@ -7,7 +6,3 @@ export const load = async ({ locals: { getSession } }: LayoutServerLoadEvent) =>
 		session: await getSession()
 	};
 };
-
-// export const actions: Actions = {
-// 	...authActions
-// };

@@ -7,7 +7,7 @@
 	export let position = 'bottom';
 
 	const dispatch = createEventDispatcher();
-	let surface;
+	let surface: any;
 	onMount(async () => {
 		window.document.children[0].style = 'overflow: hidden;';
 	});

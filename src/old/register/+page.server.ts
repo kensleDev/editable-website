@@ -1,19 +1,13 @@
-import { AuthApiError, type Provider } from '@supabase/supabase-js';
-import { redirect } from '@sveltejs/kit';
-import { fail } from 'assert';
-
-export const load = async ({ request, locals }: any) => {
-	const session = await locals.getSession();
-	if (session.user) throw redirect(303, '/');
-};
+import { AuthApiError } from '@supabase/supabase-js';
+import { fail, redirect } from '@sveltejs/kit';
 
 export const actions = {
-	register: async ({ request, locals }: any) => {
+	register: async ({ request, locals }) => {
 		const body = Object.fromEntries(await request.formData());
 
 		const { error: err } = await locals.supabase.auth.signUp({
-			email: body.email as string,
-			password: body.password as string
+			email: body.email,
+			password: body.password
 		});
 
 		if (err) {

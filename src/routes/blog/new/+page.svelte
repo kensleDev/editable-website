@@ -4,7 +4,7 @@
 	import { goto } from '$app/navigation';
 	import Footer from '$lib/components/Footer.svelte';
 	import EditableWebsiteTeaser from '$lib/components/EditableWebsiteTeaser.svelte';
-	import Article from '$lib/components/Article.svelte';
+	import Article from '$lib/features/articles/Article.svelte';
 	import NotEditable from '$lib/components/NotEditable.svelte';
 	import EditorToolbar from '$lib/components/EditorToolbar.svelte';
 

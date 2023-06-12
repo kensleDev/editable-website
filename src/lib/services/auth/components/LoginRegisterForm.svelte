@@ -1,15 +1,8 @@
-<script>
-	import { Button, Label, Input, Checkbox } from 'flowbite-svelte';
+<script lang="ts">
+	import { goto } from '$app/navigation';
+	import PrimaryButton from '$lib/components/PrimaryButton.svelte';
 
 	export let formAction = 'login';
-
-	function swapFormAction() {
-		if (formAction === 'login') {
-			formAction = 'register';
-		} else {
-			formAction = 'login';
-		}
-	}
 </script>
 
 <form action={`?/${formAction}`} method="POST" class="flex flex-col space-y-6">
@@ -18,16 +11,15 @@
 		{`${formAction === 'login' ? 'Log in' : 'Sign up'} to our platform`}
 	</h3>
 
-	<Label class="space-y-2">
-		<span>Email</span>
-		<Input type="email" name="email" placeholder="name@company.com" required />
-	</Label>
-	<Label class="space-y-2">
-		<span>Your password</span>
-		<Input type="password" name="password" placeholder="•••••" required />
-	</Label>
+	<label for="email">Email</label>
+	<input type="email" name="email" placeholder="name@company.com" required />
+
+	<label for="password">Your password</label>
+	<input type="password" name="password" placeholder="•••••" required />
+
 	<div class="flex items-start">
-		<Checkbox>Remember me</Checkbox>
+		<label for="remember"> Remember me</label>
+		<input type="checkbox" name="remember" />
 
 		{#if formAction === 'login'}
 			<a href="/" class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
@@ -35,19 +27,20 @@
 			>
 		{/if}
 	</div>
-	<Button type="submit" class="w-full1">Login to your account</Button>
+
+	<PrimaryButton type="submit">Login to your account</PrimaryButton>
 
 	{#if formAction === 'login'}
 		<div class="text-sm font-medium text-gray-500 dark:text-gray-300">
 			Not registered? <button
-				on:click={swapFormAction}
+				on:click={() => goto('/register')}
 				class="text-blue-700 hover:underline dark:text-blue-500">Create account</button
 			>
 		</div>
 	{:else}
 		<div class="text-sm font-medium text-gray-500 dark:text-gray-300">
 			Already registered? <button
-				on:click={swapFormAction}
+				on:click={() => goto('/login')}
 				class="text-blue-700 hover:underline dark:text-blue-500">Login</button
 			>
 		</div>
