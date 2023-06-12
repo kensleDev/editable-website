@@ -77,3 +77,13 @@ export async function getPageComponents(pageData: any) {
 
 	return sortedComponents;
 }
+
+export async function addComponentToPage(pageId: string, componentName: string) {
+	console.log({ pageId, componentName });
+	const componentRes = await fetchJSON('POST', '/api/add-component-to-page', {
+		pageId,
+		componentName
+	});
+
+	return componentRes;
+}

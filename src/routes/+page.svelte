@@ -4,8 +4,8 @@
 	import EditorToolbar from '$lib/components/EditorToolbar.svelte';
 	import type { PageData } from './$types';
 
-	import Head from '$lib/features/userMenu/Head.svelte';
-	import UserMenu from '$lib/features/userMenu/UserMenu.svelte';
+	import Head from '$lib/features/dashboard/head/Head.svelte';
+	import UserMenu from '$lib/features/dashboard/userMenu/UserMenu.svelte';
 	import { editable } from '$lib/stores/editable.store';
 	import { session } from '$lib/stores/session.store';
 
@@ -13,6 +13,7 @@
 		initPage,
 		savePage,
 		getPageComponents,
+		addComponentToPage,
 		type PageComponent
 	} from '$lib/services/page.service';
 
@@ -49,6 +50,11 @@
 		showUserMenu = false;
 	}
 
+	async function addComponent(componentName: string) {
+		const page = await addComponentToPage('home', componentName);
+		console.log({ page });
+	}
+
 	initOrReset();
 </script>
 
@@ -62,11 +68,12 @@
 
 <UserMenu
 	session={$session}
-	sections={Object.keys(data.page)}
+	pageData={data.page}
 	{showUserMenu}
 	{toggleEdit}
 	{closeUserMenu}
 	on:save={save}
+	on:addComponent={(e) => addComponent(e.detail)}
 />
 
 {#if components}

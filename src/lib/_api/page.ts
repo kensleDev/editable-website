@@ -1,3 +1,4 @@
+import type { User } from '@supabase/supabase-js';
 import { db } from './client';
 
 type PageData<T> = {
@@ -60,15 +61,9 @@ export async function getPage(pageId: string): Promise<any> {
 	return page ?? null;
 }
 
-export async function updatePageSections(pageId: string, newSections: string[]): Promise<any> {
-	const page = await db.page.update({
-		where: {
-			page_id: pageId
-		},
-		data: {
-			sections: newSections
-		}
-	});
-
-	return page ?? null;
+export async function addComponentToPage(pageId: string, componentName: string, currentUser: User) {
+	if (!currentUser) throw new Error('Not authorized');
+	const page = await getPage(pageId);
+	page.data[componentName.toLowerCase()] = { order: 1, content: 'hello' };
+	return await createOrUpdatePage({ pageId, page: page.data, currentUser });
 }
