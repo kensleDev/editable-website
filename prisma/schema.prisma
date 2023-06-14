@@ -32,6 +32,14 @@ model Page {
   sections       Json @default("[]")
 }
 
+model Dpage {
+  dpage_id       String    @id
+  path           String    @unique
+  theme          String    
+  data           Json      @default("{}")
+  head           Json      @default("{}")
+}
+
 model Counter {
   counter_id     String    @id
   count          Int

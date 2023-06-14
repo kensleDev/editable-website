@@ -10,6 +10,7 @@
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
+	console.log({ data });
 
 	$: ({ supabase, session } = data);
 
@@ -26,4 +27,5 @@
 	});
 </script>
 
+<p>layout</p>
 <slot />
