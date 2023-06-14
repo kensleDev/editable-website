@@ -28,3 +28,5 @@
 		return () => subscription.unsubscribe();
 	});
 </script>
+
+<slot />
