@@ -1,16 +1,18 @@
 <script lang="ts">
+	// This contains the bulk of Skeletons required styles:
+	import '@skeletonlabs/skeleton/styles/skeleton.css';
+
+	// Theme fonts
 	import '@fontsource/jost/400.css';
 	import '@fontsource/jost/500.css';
 	import '@fontsource/jost/600.css';
 	import '@fontsource/jost/700.css';
 
-	import '../app.css';
 	import { onMount } from 'svelte';
 	import { invalidate } from '$app/navigation';
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
-	console.log({ data });
 
 	$: ({ supabase, session } = data);
 
@@ -26,6 +28,3 @@
 		return () => subscription.unsubscribe();
 	});
 </script>
-
-<p>layout</p>
-<slot />

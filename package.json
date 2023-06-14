@@ -12,6 +12,7 @@
 		"example": "source .env && ts-node --esm './tools/genSupabaseTypes.ts' $DATABASE_URL"
 	},
 	"devDependencies": {
+		"@skeletonlabs/skeleton": "^1.7.1",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.5.3",
 		"@tailwindcss/forms": "^0.5.3",

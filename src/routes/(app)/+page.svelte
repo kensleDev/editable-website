@@ -33,6 +33,7 @@
 		sections = await initPage(data.page);
 		components = await getPageComponents(data.page);
 		editable.set(false);
+		console.log({ components });
 	}
 
 	function toggleEdit() {
