@@ -1,6 +1,7 @@
+import { contentStore } from '$lib/stores/content.store';
 import { writable } from 'svelte/store';
 
-export type BulletListT = BulletListItem[];
+export type BulletListT = { id: string; items: BulletListItem[] };
 
 export type BulletListItem = {
 	text: string;
@@ -9,21 +10,25 @@ export type BulletListItem = {
 };
 //
 
-const BULLETLIST_PLACEHOLDER: BulletListT = [
-	{ text: 'We treat you as an individual', description: '', icon: 'checklist' },
-	{ text: 'We give you full support', icon: 'checklist' },
-	{ text: 'Our advice is free', icon: 'checklist' }
-];
+const BULLETLIST_PLACEHOLDER: BulletListT = {
+	id: 'test',
+	items: [
+		{ text: 'We treat you as an individual', description: '', icon: 'checklist' },
+		{ text: 'We give you full support', icon: 'checklist' },
+		{ text: 'Our advice is free', icon: 'checklist' }
+	]
+};
 
 export const newBulletListStore = () => {
-	const faqs = writable<string>(BULLETLIST_PLACEHOLDER);
+	const bulletLists = writable<BulletListT[]>([BULLETLIST_PLACEHOLDER]);
+
+	const { add, remove, getOne } = contentStore<BulletListT>(bulletLists);
 
 	return {
-		subscribe: faqs.subscribe,
-		set: faqs.set
-		// addTestimonial,
-		// deleteTestimonial,
-		// moveTestimonial
+		subscribe: bulletLists.subscribe,
+		add,
+		remove,
+		getOne
 	};
 };
 

@@ -1,5 +1,8 @@
 import { get } from 'svelte/store';
 import { fetchJSON } from '$lib/util';
+import { bulletListStore } from '$lib/features/bulletList/bulletList.store';
+import { headerStore } from '$lib/features/header/header.store';
+import { buttonStore } from '$lib/features/button/button.store';
 
 export type PageComponent = {
 	name: string;
@@ -86,4 +89,26 @@ export async function addComponentToPage(pageId: string, componentName: string) 
 	});
 
 	return componentRes;
+}
+
+export function unpackPageData(pageData: any) {
+	pageData.forEach((page: any) => {
+		const components = Object.keys(page);
+
+		components.forEach((componentName) => {
+			const currentComponent = page[componentName];
+
+			if (componentName === 'header') {
+				headerStore.add(currentComponent);
+			}
+
+			if (componentName === 'bulletList') {
+				bulletListStore.add(currentComponent);
+			}
+
+			if (componentName === 'button') {
+				buttonStore.add(currentComponent);
+			}
+		});
+	});
 }

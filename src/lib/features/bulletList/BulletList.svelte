@@ -1,15 +1,47 @@
 <script lang="ts">
-	import RichText from '$lib/components/RichText.svelte';
-	import { faqsStore } from './faqs.store';
+	import PlainText from '$lib/components/PlainText.svelte';
+	import { bulletListStore } from './bulletList.store';
 
-	import { editable } from '$lib/stores/editable.store';
+	export let editable: boolean = false;
+	export let id = 'tester';
+
+	const initList = bulletListStore.getOne(id);
+
+	console.log({ initList });
+
+	const list = initList.items;
 </script>
 
-<div class="bg-white">
-	<div class="max-w-screen-md mx-auto px-6">
-		<div class="font-bold text-sm sm:text-base pt-12 sm:pt-24 -mb-6 md:-mb-12">FAQs</div>
-		<div class="prose md:prose-xl pb-12 sm:pb-24">
-			<RichText multiLine editable={$editable} bind:content={$faqsStore} />
-		</div>
+{#if list.length === 1}
+	<div class="flex items-center">
+		<span class="badge bg-primary-500">💀</span>
+		<span class="flex-auto">
+			<dt>
+				<PlainText {editable} bind:content={list[0].text} />
+			</dt>
+			{#if list[0].description}
+				<dd>
+					<PlainText {editable} bind:content={list[0].description} />
+				</dd>
+			{/if}
+		</span>
 	</div>
-</div>
+{:else}
+	<ul>
+		{#each list as bullet}
+			<li class="flex items-center">
+				<span class="badge bg-primary-500">💀</span>
+				<span class="flex-auto">
+					<dt>
+						<PlainText {editable} bind:content={bullet.text} />
+					</dt>
+					{#if bullet.description}
+						<dd>
+							<PlainText {editable} bind:content={bullet.description} />
+						</dd>
+					{/if}
+				</span>
+			</li>
+		{/each}
+	</ul>
+{/if}
