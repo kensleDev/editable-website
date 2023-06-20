@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ArticleTeaser from './ArticleTeaser.svelte';
 	import NotEditable from '$lib/components/NotEditable.svelte';
-	import type { Article } from '@prisma/client';
+	import type { Article } from '$lib/server/db/schema';
 	import { articlesStore } from './articles.store';
 	import { editable } from '$lib/stores/editable.store';
 

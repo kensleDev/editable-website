@@ -1,21 +1,22 @@
+import type { Chat, ChatMessage } from '@prisma/client';
 import { get, writable } from 'svelte/store';
 
-export interface Chat {
-	id: string;
-	name: string;
-	messages: Message[];
-}
-
-export interface Message {
-	id: string;
-	host: boolean;
-	avatar: number;
-	name: string;
-	timestamp: string;
-	message: string;
-	color: string;
-}
-
+// export interface Chat {
+// 	id: string;
+// 	name: string;
+// 	messages: Message[];
+// }
+//
+// export interface Message {
+// 	id: string;
+// 	host: boolean;
+// 	avatar: number;
+// 	name: string;
+// 	timestamp: string;
+// 	message: string;
+// 	color: string;
+// }
+//
 // function getCurrentTimestamp(): string {
 // 	return new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 // }
@@ -26,17 +27,7 @@ function newChatsStore() {
 	return {
 		subscribe: chats.subscribe,
 		addChat: (chat: Chat) => chats.update((chats) => [...chats, chat]),
-		addMessage: (id: string, message: Message) => {
-			// const newMessage = {
-			// 	id: get(chats).length,
-			// 	host: true,
-			// 	avatar: 48,
-			// 	name: 'Jane',
-			// 	timestamp: `Today @ ${getCurrentTimestamp()}`,
-			// 	message: currentMessage,
-			// 	color: 'variant-soft-primary'
-			// };
-
+		addMessage: (id: number, message: ChatMessage) => {
 			return chats.update((chats) =>
 				chats.map((chat) => {
 					if (chat.id === id) {
@@ -51,7 +42,7 @@ function newChatsStore() {
 
 export const chatsStore = newChatsStore();
 
-export const currentMessage = writable<Message | null>(null);
+export const currentMessage = writable<ChatMessage | null>(null);
 
 export const currentChat = writable<Chat>(<Chat>{});
 

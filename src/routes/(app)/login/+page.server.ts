@@ -6,7 +6,7 @@ const OAUTH_PROVIDERS = ['google', 'discord', 'github'];
 
 export const load = async ({ locals }: any) => {
 	const session = await locals.getSession();
-	if (session.user) throw redirect(303, '/');
+	if (session) throw redirect(303, '/');
 };
 
 export const actions = {

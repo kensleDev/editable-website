@@ -1,4 +1,4 @@
-import { getArticles } from '$lib/_api';
+import { getArticles } from '$lib/server/api';
 import type { PageServerLoadEvent } from '../$types';
 import type { Session } from '@supabase/supabase-js';
 export async function load({ locals: { getSession } }: PageServerLoadEvent) {

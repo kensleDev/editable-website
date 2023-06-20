@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { classNames } from '$lib/util';
+	import type { Article } from '$lib/server/db/schema';
+	import SecondaryButton from '$lib/components/SecondaryButton.svelte';
 	export let article: Article;
 	export let firstEntry: boolean;
-	import { classNames } from '$lib/util';
-	import type { Article } from '@prisma/client';
-	import SecondaryButton from '$lib/components/SecondaryButton.svelte';
 </script>
 
 <div>

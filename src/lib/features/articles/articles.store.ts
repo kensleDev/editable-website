@@ -1,4 +1,4 @@
-import type { Article } from '@prisma/client';
+import type { Article } from '$lib/server/db/schema';
 import { writable } from 'svelte/store';
 
 const ARTICLES_PLACEHOLDER = [

@@ -15,20 +15,4 @@
 	}
 </script>
 
-<AppShell regionPage="relative" slotPageHeader="sticky top-0 z-10" on:scroll={scrollHandler}>
-	<svelte:fragment slot="header">
-		<AppBar>
-			<svelte:fragment slot="lead">(icon)</svelte:fragment>
-			<svelte:fragment slot="trail">(actions)</svelte:fragment>
-			<svelte:fragment slot="headline">(headline)</svelte:fragment>
-		</AppBar>
-	</svelte:fragment>
-	<!-- (sidebarLeft) -->
-	<!-- (sidebarRight) -->
-	<!-- (pageHeader) -->
-	<!-- Router Slot -->
-	<slot />
-	<!-- ---- / ---- -->
-	<svelte:fragment slot="pageFooter">Page Footer</svelte:fragment>
-	<!-- (footer) -->
-</AppShell>
+<slot />

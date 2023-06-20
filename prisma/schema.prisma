@@ -44,3 +44,46 @@ model Counter {
   counter_id     String    @id
   count          Int
 }
+
+model Image {
+  image_id       String    @default(dbgenerated("gen_random_uuid()")) @id
+  src            String    @unique
+  layout         String
+  width          Int
+  height         Int
+  type           ImageType
+  alt            String
+  priority       Boolean
+}
+
+enum ImageType {
+  png
+  jpg
+  jpeg
+  webp
+}
+
+enum ImageLayout {
+  constrained
+  fullWidth
+  fixed
+}
+
+
+model Chat {
+  id            Int                @id @default(autoincrement()) 
+  name          String
+  messages      ChatMessage[]
+}
+
+model ChatMessage {
+  id                   Int         @id @default(autoincrement()) 
+  chat                 Chat        @relation(fields: [chat_id], references: [id])
+  chat_id              Int
+  host                 Boolean
+  avatar               Int
+  name                 String
+  timestamp            String
+  message              String
+}
+

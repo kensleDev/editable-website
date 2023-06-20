@@ -1,7 +1,4 @@
 import { SHORTCUTS } from '../constants';
-import { PrismaClient } from '@prisma/client';
-
-const db = new PrismaClient();
 
 interface SearchResult {
 	name: string;

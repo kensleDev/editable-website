@@ -1,6 +1,4 @@
 import type { Session } from '@supabase/supabase-js';
-import { db } from './client';
-import type { Image } from '@prisma/client';
 
 export async function createImage(
 	src: string,

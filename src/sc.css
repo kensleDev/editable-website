@@ -1,1 +1,37 @@
 @import 'app.css';
+
+@font-face {
+	/* Reference name */
+	font-family: 'Corbel';
+	/* For multiple files use commas, ex: url(), url(), ... */
+	src: url('/fonts/CORBEL.ttf');
+}
+
+:root {
+	--theme-font-family-base: 'Corbel', sans-serif;
+	--theme-font-family-heading: 'Corbel', sans-serif;
+}
+
+.debug {
+	border: 2px solid red;
+}
+
+.debug2 {
+	border: 2px solid green;
+}
+
+.card {
+	width: 100%;
+}
+
+h1 {
+	font-size: 50px;
+	line-height: 1.2;
+	margin: 1rem 0;
+}
+
+h2 {
+	font-size: 1.867rem;
+	line-height: 1.2;
+	margin: 1rem 0;
+}
